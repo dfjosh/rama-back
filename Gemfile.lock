@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/cerebris/jsonapi-resources.git
+  revision: 95027f4ac021b40b41a2130808f1cfcf511b3dc0
+  branch: master
+  specs:
+    jsonapi-resources (0.7.0)
+      concurrent-ruby
+      rails (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,8 +56,6 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
-    jsonapi-resources (0.7.0)
-      rails (>= 4.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -123,7 +130,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  jsonapi-resources
+  jsonapi-resources!
   listen (~> 3.0.5)
   mysql2 (>= 0.3.18, < 0.5)
   puma (~> 3.0)
