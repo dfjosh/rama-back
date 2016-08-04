@@ -18,19 +18,19 @@ ActiveRecord::Schema.define(version: 20160804054227) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "categorizations", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "post_id"
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_categorizations_on_category_id", using: :btree
+    t.index ["post_id"], name: "index_categorizations_on_post_id", using: :btree
+  end
+
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
     t.string   "author"
     t.text     "body",       limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-  end
-
-  create_table "posts_categories", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "post_id"
-    t.integer "category_id"
-    t.index ["category_id"], name: "index_posts_categories_on_category_id", using: :btree
-    t.index ["post_id"], name: "index_posts_categories_on_post_id", using: :btree
   end
 
   create_table "posts_tags", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

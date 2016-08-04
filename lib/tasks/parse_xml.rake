@@ -53,7 +53,6 @@ namespace :parse_xml do
       puts post.categories.inspect
       post.tags = tags
       puts post.tags.inspect
-      # post.save!
     end
   end
 end
