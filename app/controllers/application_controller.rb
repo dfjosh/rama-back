@@ -1,4 +1,4 @@
 class ApplicationController < JSONAPI::ResourceController
   # include JSONAPI::ActsAsResourceController
-  # protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session
 end
