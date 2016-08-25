@@ -9,4 +9,8 @@ class PostResource < JSONAPI::Resource
   end
 
   filter :author
+
+  paginator :paged
+
+
 end
