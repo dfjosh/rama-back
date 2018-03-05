@@ -1,11 +1,12 @@
 require 'nokogiri'
 
+EXPORT_FILE = "/Users/Josh/Websites/rama-assets/distantfuturejosh.wordpress.2016-07-31-2.xml" # use '-2'. The first one has IMGs as posts for some reason.
+
 namespace :parse_xml do
   desc '$ rails parse_xml:import["/the/path"]'
 
-  task :import, [:export_file] => :environment do |t, args|
-    file = args.export_file                     # or args[:export_file]
-    doc = Nokogiri::XML(File.open(file))        # { |config| config.noent }
+  task import: :environment do |t, args|
+    doc = Nokogiri::XML(File.open(EXPORT_FILE))        # { |config| config.noent }
     doc.css("item").each do |item|
       post = Post.create!(
         title:      item.css("title").text,
@@ -17,18 +18,18 @@ namespace :parse_xml do
     end
   end
 
-  task :taxonomy, [:export_file] => :environment do |t, args|
-    doc = Nokogiri::XML(File.open(args.export_file))
+  task taxonomy: :environment do |t, args|
+    doc = Nokogiri::XML(File.open(EXPORT_FILE))
     doc.css("category").each do |node|
       if node["domain"] == "category"
-        unless Category.exists?(text: node.text)
-          category = Category.new(text: node.text, slug: node["nicename"]) # removed slug in favor of using parameterize!!
+        unless Category.exists?(name: node.text)
+          category = Category.new(name: node.text) # removed slug in favor of using parameterize!!
           category.save!
           # puts "#{category.slug} != #{category.text.parameterize}" if category.slug != category.text.parameterize
         end
       elsif node["domain"] == "post_tag"
-        unless Tag.exists?(text: node.text)
-          tag = Tag.new(text: node.text, slug: node["nicename"]) # removed slug in favor of using parameterize!!
+        unless Tag.exists?(name: node.text)
+          tag = Tag.new(name: node.text) # removed slug in favor of using parameterize!!
           tag.save!
           # puts "#{tag.slug} != #{tag.text.parameterize}" if tag.slug != tag.text.parameterize
         end
@@ -36,16 +37,16 @@ namespace :parse_xml do
     end
   end
 
-  task :link_posts_with_taxonomy, [:export_file] => :environment do |t, args|
-    doc = Nokogiri::XML(File.open(args.export_file))
+  task link_posts_with_taxonomy: :environment do |t, args|
+    doc = Nokogiri::XML(File.open(EXPORT_FILE))
     doc.css("item").each do |item|
       categories = []
       tags = []
       item.css("category").each do |category|
         if category["domain"] == "category"
-          categories << Category.find_by_text(category.text)
+          categories << Category.find_by_name(category.text)
         elsif category["domain"] == "post_tag"
-          tags << Tag.find_by_text(category.text)
+          tags << Tag.find_by_name(category.text)
         end
       end
       post = Post.where(title: item.at_css("title").text).first
@@ -57,14 +58,14 @@ namespace :parse_xml do
     end
   end
 
-  task :comments, [:export_file] => :environment do |t, args|
-    doc = Nokogiri::XML(File.open(args.export_file))
+  task comments: :environment do |t, args|
+    doc = Nokogiri::XML(File.open(EXPORT_FILE))
     doc.css("item").each do |item|
       title = item.at_css("title").text
       puts title
       item.css("wp|comment").each do |comment|
         Comment.create!(
-          post_id:    Post.where(title: title).first.id, # shouldn't I not have to call .id?
+          post:       Post.where(title: title).first, # shouldn't I not have to call .id?
           author:     comment.at_css("wp|comment_author").text,
           email:      comment.at_css("wp|comment_author_email").text,
           content:    comment.at_css("wp|comment_content").text,
