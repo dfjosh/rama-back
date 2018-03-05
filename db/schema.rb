@@ -34,14 +34,14 @@ ActiveRecord::Schema.define(version: 20180304182931) do
     t.index ["version"], name: "unique_data_migrations", unique: true, using: :btree
   end
 
-  create_table "post_categories", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "post_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "post_id"
     t.integer "category_id"
     t.index ["category_id"], name: "index_post_categories_on_category_id", using: :btree
     t.index ["post_id"], name: "index_post_categories_on_post_id", using: :btree
   end
 
-  create_table "post_tags", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "post_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "post_id"
     t.integer "tag_id"
     t.index ["post_id"], name: "index_post_tags_on_post_id", using: :btree
