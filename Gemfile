@@ -36,4 +36,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'jsonapi-resources', github: 'cerebris/jsonapi-resources', branch: 'master'
-gem 'data_migrate', '~> 3.4'
+gem 'data_migrate', '~> 4.0'

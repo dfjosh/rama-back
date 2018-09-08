@@ -56,8 +56,8 @@ GEM
     byebug (9.0.5)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
-    data_migrate (3.4.0)
-      rails (>= 4.0)
+    data_migrate (4.0.0)
+      rails (>= 4.2)
     erubi (1.7.1)
     ffi (1.9.14)
     globalid (0.4.1)
@@ -140,7 +140,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  data_migrate (~> 3.4)
+  data_migrate (~> 4.0)
   jsonapi-resources!
   listen (~> 3.0.5)
   mysql2 (>= 0.3.18, < 0.5)
