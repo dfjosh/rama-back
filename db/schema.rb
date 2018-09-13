@@ -54,7 +54,8 @@ ActiveRecord::Schema.define(version: 2018_09_03_234540) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_project", default: false
+    t.string "feature_image"
+    t.string "feature_link"
   end
 
   create_table "posts_copy", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

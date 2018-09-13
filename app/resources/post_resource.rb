@@ -1,5 +1,5 @@
 class PostResource < JSONAPI::Resource
-  attributes :title, :author, :body, :created_at, :updated_at
+  attributes :title, :author, :body, :feature_image, :feature_link, :created_at, :updated_at
   has_many :categories
   has_many :tags#, always_include_linkage_data: true
   has_many :comments
