@@ -8,7 +8,7 @@ class PostResource < JSONAPI::Resource
     [{ field: 'created_at', direction: :desc }]
   end
 
-  filter :author
+  filters :author, :categories, :title
 
   paginator :paged
 
