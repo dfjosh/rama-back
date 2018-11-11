@@ -1,4 +1,3 @@
-class ApplicationController < JSONAPI::ResourceController
-  # include JSONAPI::ActsAsResourceController
+class ApplicationController < ActionController::API
   # protect_from_forgery with: :null_session # why can't this be uncommented?!
 end
