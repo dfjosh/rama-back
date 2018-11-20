@@ -35,6 +35,6 @@ class TagsController < ApplicationController
   private
   
   def tag_params
-    params.require(:data).require(:attributes).permit(:name)
+    params.require(:data).require(:attributes).permit(:name, :created_at, :updated_at)
   end
 end
