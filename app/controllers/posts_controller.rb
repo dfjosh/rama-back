@@ -1,6 +1,17 @@
 class PostsController < ApplicationController
   def index
-    posts = Post.all
+    if params[:categories]
+      posts = Post.joins(:categories)
+                  .where(categories: {name: params[:categories]})
+                  .order("posts.created_at DESC")
+    elsif params["!categories"]
+      posts = Post.joins(:categories)
+                  .where.not(categories: {name: params["!categories"]})
+                  .order("posts.created_at DESC")
+    else
+      posts = Post.all
+    end
+    
     render json: PostSerializer.new(posts).serialized_json
   end
   
@@ -10,20 +21,20 @@ class PostsController < ApplicationController
   end
   
   def create
-    post = Post.create!(object_params)
+    post = Post.create!(post_params)
     if post
       render json: PostSerializer.new(post).serialized_json
     else
-      render json: {error: 500}
+      render json: {error: 400}
     end
   end
   
   def update
     post = Post.find(params[:id])
-    if post.update_attributes!(object_params)
+    if post.update_attributes!(post_params)
       render json: PostSerializer.new(post).serialized_json
     else
-      render json: {error: 500}
+      render json: {error: 400}
     end
   end
   
@@ -34,7 +45,7 @@ class PostsController < ApplicationController
   
   private
   
-  def object_params
-    params.require(:post).permit(:title, :author, :body, :feature_image, :feature_link)
+  def post_params
+    params.require(:data).require(:attributes).permit(:title, :author, :body, :created_at, :updated_at, :feature_image, :feature_link)
   end
 end

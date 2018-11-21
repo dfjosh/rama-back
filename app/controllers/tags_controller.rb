@@ -14,7 +14,7 @@ class TagsController < ApplicationController
     if tag
       render json: TagSerializer.new(tag).serialized_json
     else
-      render json: {error: 500}
+      render json: {error: 400}
     end
   end
   
@@ -23,7 +23,7 @@ class TagsController < ApplicationController
     if tag.update_attributes!(tag_params)
       render json: TagSerializer.new(tag).serialized_json
     else
-      render json: {error: 500}
+      render json: {error: 400}
     end
   end
   
