@@ -3,10 +3,12 @@ class PostsController < ApplicationController
     if params[:categories]
       posts = Post.joins(:categories)
                   .where(categories: {name: params[:categories]})
+                  .group("posts.id")
                   .order("posts.created_at DESC")
     elsif params["!categories"]
       posts = Post.joins(:categories)
                   .where.not(categories: {name: params["!categories"]})
+                  .group("posts.id")
                   .order("posts.created_at DESC")
     else
       posts = Post.all
