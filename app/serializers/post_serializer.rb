@@ -2,9 +2,14 @@ class PostSerializer
   include FastJsonapi::ObjectSerializer
   
   attributes :title, :author, :body, :created_at, :updated_at, :feature_image, :feature_link
-  has_many :categories
-  has_many :tags#, always_include_linkage_data: true
-  has_many :comments
+  has_many :categories#, lazy_load_data: true
+  has_many :tags#, lazy_load_data: true
+  has_many :comments#, lazy_load_data: true
+  # has_many :tags, lazy_load_data: true, links: {
+  #   related: -> (object) {
+  #     "http://localhost:3000/posts/#{object.id}/tags"
+  #   }
+  # }
 
   # old jsonapi_resource stuff
   # def self.default_sort

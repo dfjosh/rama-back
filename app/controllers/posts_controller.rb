@@ -1,20 +1,14 @@
 class PostsController < ApplicationController
   def index
-    if params[:categories]
-      posts = Post.joins(:categories)
-                  .where(categories: {name: params[:categories]})
-                  .group("posts.id")
-                  .order("posts.created_at DESC")
-    elsif params["!categories"]
-      posts = Post.joins(:categories)
-                  .where.not(categories: {name: params["!categories"]})
-                  .group("posts.id")
-                  .order("posts.created_at DESC")
-    else
-      posts = Post.all
+    posts = Post.all
+    
+    if f = params[:filter]
+      posts = posts.joins(f[:name].split(".")[0..-2].map(&:to_sym))
+                   .where("#{f[:name]} #{f[:op]} ?", f[:val])
     end
     
-    render json: PostSerializer.new(posts).serialized_json
+    posts = posts.includes(params[:includes]).group("posts.id").order("posts.created_at DESC")
+    render json: PostSerializer.new(posts, {include: params[:includes]}).serialized_json
   end
   
   def show
