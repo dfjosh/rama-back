@@ -3,7 +3,7 @@ class TagSerializer
   # set_key_transform :dash # must go first!
   
   attributes :name, :created_at, :updated_at
-  has_many :posts
+  # has_many :posts
   
 
   # old jsonapi_resource stuff

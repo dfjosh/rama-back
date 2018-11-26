@@ -2,13 +2,23 @@ class PostsController < ApplicationController
   def index
     posts = Post.all
     
-    if f = params[:filter]
-      posts = posts.joins(f[:name].split(".")[0..-2].map(&:to_sym))
-                   .where("#{f[:name]} #{f[:op]} ?", f[:val])
+    if filter = params[:filter]
+      posts = posts.joins(filter[:name].split(".")[0..-2].map(&:to_sym))
+                   .where("#{filter[:name]} #{filter[:op]} ?", filter[:val])
     end
     
-    posts = posts.includes(params[:includes]).group("posts.id").order("posts.created_at DESC")
-    render json: PostSerializer.new(posts, {include: params[:includes]}).serialized_json
+    limit = params[:limit]&.to_i
+    offset = limit ? (params[:page]&.to_i - 1) * limit : nil
+    
+    posts = posts.group("posts.id").order("posts.created_at DESC")
+    total = posts.length # NOTE must happen AFTER grouping! TODO or should I be sending the number of pages?
+    posts = posts.includes(params[:includes]).limit(limit).offset(offset) # NOTE only gets includes for the paginated subset. Much more efficient!
+
+    options = {
+      include: params[:includes], 
+      meta: {total: total}
+    }
+    render json: PostSerializer.new(posts, options).serialized_json
   end
   
   def show
