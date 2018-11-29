@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
   def update
     category = Category.find(params[:id])
     if category.update_attributes!(category_params)
-      render json: CateogrySerializer.new(category).serialized_json
+      render json: CategorySerializer.new(category).serialized_json
     else
       render json: {error: 400}
     end
