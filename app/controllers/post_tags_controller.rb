@@ -1,6 +1,11 @@
 class PostTagsController < ApplicationController
   def index
     post_tags = PostTag.all
+    
+    if post_id = params[:post_id]
+      post_tags = post_tags.where(post_id: post_id)
+    end
+    
     render json: PostTagSerializer.new(post_tags).serialized_json
   end
   

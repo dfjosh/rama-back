@@ -5,6 +5,11 @@ class PostSerializer
   has_many :categories#, lazy_load_data: true
   has_many :tags#, lazy_load_data: true
   has_many :comments#, lazy_load_data: true
+  has_many :post_tags, links: {
+    related: -> (object) {
+      "http://localhost:3000/posts/#{object.id}/post_tags"
+    }
+  }
   # has_many :tags, lazy_load_data: true, links: {
   #   related: -> (object) {
   #     "http://localhost:3000/posts/#{object.id}/tags"
