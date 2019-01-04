@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-EXPORT_FILE = "/Users/Josh/Websites/rama-assets/distantfuturejosh.wordpress.2016-07-31-2.xml" # use '-2'. The first one has IMGs as posts for some reason.
+EXPORT_FILE = "/Users/josh/projects/rama/rama-assets/distantfuturejosh.wordpress.2016-07-31-2.xml" # use '-2'. The first one has IMGs as posts for some reason.
 
 namespace :parse_xml do
   desc '$ rails parse_xml:import["/the/path"]'
