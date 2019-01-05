@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :post_categories
   resources :post_tags
   resources :tags
+  resources :users
+  resources :sessions
 end
