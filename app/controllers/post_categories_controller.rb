@@ -1,4 +1,6 @@
 class PostCategoriesController < ApplicationController
+  before_action :authenticate_user, only: [:create, :update, :destroy]
+
   def index
     post_categories = PostCategory.all
     render json: PostCategorySerializer.new(post_categories).serialized_json

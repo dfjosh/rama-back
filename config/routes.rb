@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   end
   resources :post_categories
   resources :post_tags
+  resources :sessions
   resources :tags
   resources :users
-  resources :sessions
+  post 'user_token' => 'user_token#create'
 end

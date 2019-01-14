@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user, only: [:create, :update, :destroy]
+
   def index
     comments = Comment.all
     render json: CommentSerializer.new(comments).serialized_json

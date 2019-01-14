@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user, only: [:create, :update, :destroy]
+
   def index
     categories = Category.all.order(id: :desc)
     render json: CategorySerializer.new(categories).serialized_json

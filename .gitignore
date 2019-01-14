@@ -17,6 +17,7 @@
 .byebug_history
 
 /config/secrets.yml
+.env*
 
 # Ignore image assets
 /public/uploads

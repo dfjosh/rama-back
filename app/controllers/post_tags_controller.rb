@@ -1,4 +1,6 @@
 class PostTagsController < ApplicationController
+  before_action :authenticate_user, only: [:create, :update, :destroy]
+
   def index
     post_tags = PostTag.all
     

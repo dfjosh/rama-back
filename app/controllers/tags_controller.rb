@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+  before_action :authenticate_user, only: [:create, :update, :destroy]
+
   def index
     tags = Tag.all.order(id: :desc)
     render json: TagSerializer.new(tags).serialized_json
