@@ -43,16 +43,26 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    bcrypt (3.1.12)
     builder (3.2.3)
     byebug (9.0.5)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    data_migrate (4.0.0)
+      rails (>= 4.2)
     erubi (1.7.1)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     ffi (1.9.14)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    jwt (1.5.6)
+    knock (2.1.1)
+      bcrypt (~> 3.1)
+      jwt (~> 1.5)
+      rails (>= 4.2)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -105,6 +115,8 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    restful-jsonapi (1.0.6)
+      rails (>= 4, < 6)
     spring (1.7.2)
     spring-watcher-listen (2.0.0)
       listen (>= 2.7, < 4.0)
@@ -128,12 +140,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   byebug
+  data_migrate (~> 4.0)
+  fast_jsonapi (~> 1.5)
+  knock (~> 2.1, >= 2.1.1)
   listen (~> 3.0.5)
-  pg
-  puma (~> 3.0)
+  pg (~> 1.1, >= 1.1.3)
+  puma
   rack-cors
   rails (~> 5.2.0)
+  restful-jsonapi
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
