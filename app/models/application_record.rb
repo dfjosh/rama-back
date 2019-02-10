@@ -1,4 +1,4 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
-  # comment
+  # comment 1
 end
