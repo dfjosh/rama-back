@@ -3,7 +3,7 @@ class StripDomainFromImageUrls < ActiveRecord::Migration[5.2]
     Post.transaction do
       Post.all.each do |post|
         match = /http:\/\/www.distantfuturejosh.com\/wordpress\/wp-content/
-        replacement = "http://localhost:3000"
+        replacement = "&cdnURL&"
         post.body.gsub!(/#{match}/, replacement)
         puts post.title
         post.save!
