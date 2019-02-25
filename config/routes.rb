@@ -13,6 +13,5 @@ Rails.application.routes.draw do
     post "user_token" => "user_token#create"
   end
   
-  root to: "index"
-  # get "*path", to: "application#show"
+  get "*path", to: "application#index"
 end

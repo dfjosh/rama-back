@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   #   eq: "="
   # }
   
-  def show
+  def index
   end
   
   private
