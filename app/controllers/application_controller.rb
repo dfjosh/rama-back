@@ -6,6 +6,9 @@ class ApplicationController < ActionController::API
   #   eq: "="
   # }
   
+  def show
+  end
+  
   private
   
   # def filter_params

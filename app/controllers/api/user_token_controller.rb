@@ -1,4 +1,4 @@
-class UserTokenController < Knock::AuthTokenController
+class Api::UserTokenController < Knock::AuthTokenController
   def create
     user = User.find_by_email(user_token_params[:email])
     
