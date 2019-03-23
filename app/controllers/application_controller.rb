@@ -6,8 +6,8 @@ class ApplicationController < ActionController::API
   #   eq: "="
   # }
   
-  def index
-  end
+  # def index
+  # end
   
   private
   
