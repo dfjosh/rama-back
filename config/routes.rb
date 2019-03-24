@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount_ember_app :frontend, to: "/"
+  
   namespace :api do
     resources :categories
     resources :comments
@@ -12,6 +14,4 @@ Rails.application.routes.draw do
     resources :users
     post "user_token" => "user_token#create"
   end
-  
-  # get "*path", :to => redirect("index.html")
 end
