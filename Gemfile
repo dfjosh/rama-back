@@ -41,4 +41,4 @@ gem 'data_migrate', '~> 4.0'
 gem 'pg', '~> 1.1', '>= 1.1.3'
 gem 'knock', '~> 2.1', '>= 2.1.1'
 gem 'ember-cli-rails', '~> 0.10.0'
-gem 'rails_12factor', group: [:staging, :production]
+# gem 'rails_12factor', group: [:staging, :production]
