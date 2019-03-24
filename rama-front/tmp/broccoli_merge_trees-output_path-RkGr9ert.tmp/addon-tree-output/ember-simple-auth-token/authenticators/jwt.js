@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/tmp/broccoli_persistent_filterbabel__babel_ember_simple_auth_token-output_path-Zl2mxK75.tmp/ember-simple-auth-token/authenticators/jwt.js

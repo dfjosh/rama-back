@@ -1,0 +1,12 @@
+.haiku {
+  width: 500px;
+  margin: 36px auto;
+}
+.haiku pre {
+  background-color: transparent;
+  border: 0px;
+  border-radius: 0px;
+}
+.haiku em {
+  margin-left: -76px;
+}

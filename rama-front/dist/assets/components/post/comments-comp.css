@@ -1,0 +1,10 @@
+.comments-comp li {
+  margin-bottom: 18px;
+}
+.comments-comp li p {
+  margin: 0px;
+}
+.comments-comp li p.bg-disabled {
+  padding: 15px;
+  border-radius: 3px;
+}

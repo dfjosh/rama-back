@@ -1,0 +1,8 @@
+define("rama-front/templates/admin", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "AmVOi9ba", "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"class\",\"container-fluid admin\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"col-sm-2\"],[9],[0,\"\\n      \"],[7,\"ul\"],[11,\"class\",\"nav nav-pills nav-stacked\"],[9],[0,\"\\n        \"],[7,\"li\"],[9],[0,\"\\n          \"],[4,\"link-to\",[\"admin.posts\"],null,{\"statements\":[[0,\"Posts\"]],\"parameters\":[]},null],[0,\"\\n        \"],[10],[0,\"\\n        \"],[7,\"li\"],[9],[0,\"\\n          \"],[4,\"link-to\",[\"admin.taxonomies.taxonomy\",\"categories\"],null,{\"statements\":[[0,\"Categories\"]],\"parameters\":[]},null],[0,\"\\n        \"],[10],[0,\"\\n        \"],[7,\"li\"],[9],[0,\"\\n          \"],[4,\"link-to\",[\"admin.taxonomies.taxonomy\",\"tags\"],null,{\"statements\":[[0,\"Tags\"]],\"parameters\":[]},null],[0,\"\\n        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"col-sm-10\"],[9],[0,\"\\n      \\n      \"],[1,[21,\"outlet\"],false],[0,\"\\n      \\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "rama-front/templates/admin.hbs" } });
+});

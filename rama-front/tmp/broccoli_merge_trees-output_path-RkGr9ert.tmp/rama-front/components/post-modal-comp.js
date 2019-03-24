@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/app/components/post-modal-comp.js

@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/app/authenticators/oauth2.js

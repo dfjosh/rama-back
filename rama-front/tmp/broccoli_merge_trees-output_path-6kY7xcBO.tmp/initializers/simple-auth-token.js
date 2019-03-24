@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/node_modules/ember-simple-auth-token/app/initializers/simple-auth-token.js

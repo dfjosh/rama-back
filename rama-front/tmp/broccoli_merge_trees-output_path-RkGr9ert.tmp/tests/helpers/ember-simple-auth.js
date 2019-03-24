@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/node_modules/ember-simple-auth/test-support/helpers/ember-simple-auth.js
