@@ -1,3 +1,3 @@
 EmberCli.configure do |c|
-  c.app :frontend, path: Rails.root.join("../", "rama-front").to_s
+  c.app :frontend, path: "/Users/josh/projects/rama/rama-front"
 end
