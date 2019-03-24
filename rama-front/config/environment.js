@@ -25,12 +25,6 @@ module.exports = function(environment) {
       // when it is created
     }
   };
-  
-  ENV['ember-simple-auth-token'] = {
-    serverTokenEndpoint: `${ENV.apiURL}/user_token/`,
-    tokenPropertyName: 'token', // "token" is the default
-    refreshTokenPropertyName: 'token' // "refresh_token" is the default, but setting to "token" to use the same token for both access and refresh requests
-  };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -57,6 +51,12 @@ module.exports = function(environment) {
     ENV.apiURL = 'https://distant-future-josh.herokuapp.com/api';
     ENV.cdnURL = 'https://s3-us-west-1.amazonaws.com/lazy-rama';
   }
+
+  ENV['ember-simple-auth-token'] = {
+    serverTokenEndpoint: `${ENV.apiURL}/user_token/`,
+    tokenPropertyName: 'token', // "token" is the default
+    refreshTokenPropertyName: 'token' // "refresh_token" is the default, but setting to "token" to use the same token for both access and refresh requests
+  };
 
   return ENV;
 };
