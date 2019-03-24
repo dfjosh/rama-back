@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/tmp/rollup-output_path-my3LwhRP.tmp/ember-data/-private.js

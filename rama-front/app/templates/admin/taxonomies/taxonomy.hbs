@@ -1,0 +1,33 @@
+<div class="row taxonomies-toolbar">
+  <div class="col-sm-12">
+    {{link-to (concat "New " (capitalize model.modelName)) "admin.taxonomies.taxonomy.new" class="btn btn-primary pull-right"}}
+  </div>
+</div>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>created</th>
+      <th>updated</th>
+      <th>edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |taxonomy|}}
+      <tr>
+        <td>{{taxonomy.id}}</td>
+        <td>{{taxonomy.name}}</td>
+        <td>{{formatted-date taxonomy.createdAt}}</td>
+        <td>{{formatted-date taxonomy.updatedAt}}</td>
+        <td>
+          {{#link-to "admin.taxonomies.taxonomy.edit" taxonomy}}
+            <span class="glyphicon glyphicon-pencil"></span>
+          {{/link-to}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{outlet}}

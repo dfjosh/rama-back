@@ -1,0 +1,92 @@
+{{#modal-comp modalId=modalId size="lg" isRoute=isRoute}}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+    <h4>New Post</h4>
+  </div>
+  <div class="modal-body">
+
+    <div class="row title">
+      <div class="col-sm-10 col-sm-offset-2">
+        <div class="form-group form-group-lg">
+          {{input class="form-control input-lg" value=model.title type="text" placeholder="Title"}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row content">
+      <div class="col-sm-2 taxonomy">
+        <ul class="list-unstyled">
+          <li>
+            <div class="dropdown">
+              <button id="categroyButton" type="button" data-toggle="dropdown" class="btn btn-xs btn-success">
+                Add Categories
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu pull-right">
+                {{#each categories as |category|}}
+                  <li>
+                    <a href="#" {{action "addCategory" category}}>{{category.name}}</a>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+            <ul class="list-unstyled">
+              {{#each model.postCategories as |postCategory|}}
+                <li>
+                  <button type="button" class="btn btn-xs btn-success">
+                    {{postCategory.category.name}}
+                  </button>
+                </li>
+              {{/each}}
+            </ul>
+          </li>
+          <li>
+            <div class="dropdown">
+              <button id="tagButton" type="button" data-toggle="dropdown" class="btn btn-xs btn-info">
+                Add Tags
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu pull-right">
+                {{#each tags as |tag|}}
+                  <li>
+                    <a href="#" {{action "addTag" tag}}>{{tag.name}}</a>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+            <ul class="list-unstyled">
+              {{#each model.postTags as |postTag|}}
+                <li>
+                  <button type="button" class="btn btn-xs btn-info">
+                    {{postTag.tag.name}}
+                  </button>
+                </li>
+              {{/each}}
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-sm-10">
+        <div class="form-group form-group-lg">
+          {{textarea class="form-control input-lg" value=model.body rows="10" placeholder="What's happening?"}}
+        </div>
+        <div class="form-inline pull-right">
+          {{#if model.isNew}}
+            <div class="form-group form-group-lg">
+              <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          {{else}}
+            <div class="form-group form-group-lg">
+              <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal" {{action "deletePost"}}>Delete</button>
+            </div>
+          {{/if}}
+          <div class="form-group form-group-lg">
+            <button type="button" class="btn btn-lg btn-primary" {{action "publishPost"}}>Publish</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{{/modal-comp}}

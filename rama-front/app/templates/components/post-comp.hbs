@@ -1,0 +1,53 @@
+<article class="row">
+  <div class="col-sm-12">
+
+    <div class="row title">
+      <div class="col-sm-{{gutterColumns}}"></div>
+      <div class="col-sm-{{contentColumns}}">
+        <h1>
+          {{#if post.featureLink}}
+            <a href="">
+              {{#if showAsterisk}}
+                <span class="glyphicon glyphicon-asterisk"></span>
+              {{/if}}
+              {{post.title}}
+            </a>
+          {{else}}
+            {{#link-to "post" post}}
+              {{#if showAsterisk}}
+                <span class="glyphicon glyphicon-asterisk"></span>
+              {{/if}}
+              {{post.title}}
+            {{/link-to}}
+          {{/if}}
+        </h1>
+      </div>
+      <div class="col-sm-{{gutterColumns}}"></div>
+    </div>
+    
+    {{#if showFeatureImage}}
+      <div class="row feature-image">
+        <a href={{post.featureLink}}>
+          <img src={{concat ENV.cdnURL post.featureImage}}>
+        </a>
+      </div>
+    {{/if}}
+
+    <div class="row content">
+      <div class="col-sm-{{gutterColumns}} taxonomy">
+        {{#if showTaxonomy}}
+          {{post/taxonomy-comp post=post}}
+        {{/if}}
+      </div>
+      <div class="col-sm-{{contentColumns}}">
+        <p>{{post.htmlBody}}</p>
+        {{#if showAttribution}}
+          <p>&mdash; by {{post/attribution-comp post=post}}</p>
+        {{/if}}
+        <hr class={{if showHorizontalRule "" "invisible"}}>
+      </div>
+      <div class="col-sm-{{gutterColumns}}"></div>
+    </div>
+
+  </div>
+</article>

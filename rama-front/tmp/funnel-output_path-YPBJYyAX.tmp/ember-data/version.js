@@ -1,0 +1,1 @@
+/Users/josh/Projects/rama-front/tmp/creator-output_path-UpK6aMmB.tmp/version.js

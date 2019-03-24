@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/tmp/creator-output_path-tBzjnQ5v.tmp/ember-simple-auth/register-version.js

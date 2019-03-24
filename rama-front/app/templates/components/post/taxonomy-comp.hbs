@@ -1,0 +1,22 @@
+{{#if post.categories}}
+  <ul class="list-unstyled">
+    {{#each post.categories as |category|}}
+      <li>
+        <button type="button" class="btn btn-xs btn-success">
+          {{category.name}}
+        </button>
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}
+{{#if post.tags}}
+  <ul class="list-unstyled">
+    {{#each post.tags as |tag|}}
+      <li>
+        <button type="button" class="btn btn-xs btn-info">
+          {{tag.name}}
+        </button>
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}

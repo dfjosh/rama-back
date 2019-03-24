@@ -1,0 +1,14 @@
+<div class="row content">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <ul class="list-unstyled">
+      {{#each post.comments as |comment|}}
+        <li>
+          <p>{{post/attribution-comp post=comment}} said:</p>
+          <p class="bg-disabled">{{comment.content}}</p>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="col-sm-2"></div>
+</div>

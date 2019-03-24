@@ -1,0 +1,1 @@
+{"modulePrefix":"rama-front","environment":"development","rootURL":"/","locationType":"router-scroll","historySupportMiddleware":true,"apiURL":"http://localhost:3000","EmberENV":{"FEATURES":{},"EXTEND_PROTOTYPES":{"Date":false}},"APP":{"name":"rama-front","version":"0.0.0+060667cd"},"emberData":{"enableRecordDataRFCBuild":false},"exportApplicationGlobal":true}

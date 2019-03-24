@@ -1,0 +1,1 @@
+/Users/josh/Projects/rama/rama-front/node_modules/ember-data/addon/serializer.js

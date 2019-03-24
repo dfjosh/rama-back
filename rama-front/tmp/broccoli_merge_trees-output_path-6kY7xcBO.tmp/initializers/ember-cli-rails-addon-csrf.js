@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/node_modules/ember-cli-rails-addon/app/initializers/ember-cli-rails-addon-csrf.js

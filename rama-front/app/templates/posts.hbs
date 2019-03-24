@@ -1,0 +1,16 @@
+{{header-comp}}
+
+{{nav-comp}}
+
+<main class="container-fluid">
+
+  {{#each model as |post|}}
+    {{post-comp 
+      post=post
+      showFeatureImage=false
+    }}
+  {{/each}}
+
+  {{pagination-comp store=store limit=limit page=page total=total}} {{!-- why don't I need to pass the model here? --}}
+
+</main>

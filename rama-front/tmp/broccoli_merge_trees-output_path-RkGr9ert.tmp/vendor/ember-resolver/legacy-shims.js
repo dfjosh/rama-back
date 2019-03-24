@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/node_modules/ember-resolver/vendor/ember-resolver/legacy-shims.js

@@ -1,0 +1,16 @@
+{{#modal-comp id="admin_taxonomies_taxonomy_new_modal" modalId="newTaxonomy" isRoute=true size="sm"}}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+    <h4 class="modal-title">New {{capitalize model._internalModel.modelName}}</h4> {{!-- yuck, but it works for unsaved objects --}}
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="nameInput">Name</label>
+      {{input type="text" class="form-control" id="nameInput" value=model.name}}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" {{action "createTaxonomy"}}>Create</button>
+  </div>
+{{/modal-comp}}

@@ -1,0 +1,54 @@
+.post-comp .content .taxonomy {
+  padding-right: 0px;
+}
+.post-comp .feature-image a {
+  display: block;
+}
+.post-comp .feature-image img {
+  height: 250px;
+  margin-bottom: 12px;
+}
+.post-comp article h1 {
+  /* padding-left: 60px;
+  text-indent: -32px; */
+}
+.post-comp hr.invisible {
+  margin: 30px 0px;
+}
+.post-comp article .content img {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: block;
+  border-radius: 3px;
+}
+.post-comp article .content img.alignnone {
+  
+}
+.post-comp article .content img.aligncenter {
+  /* text-align: center; */
+  margin-left: auto;
+  margin-right: auto;
+}
+.post-comp article .content img.alignright {
+  float: right;
+  margin-left: 25px;
+}
+.post-comp article .content img.alignleft {
+  float: left;
+  margin-right: 25px;
+}
+.post-comp article .content img.size-full {
+  width: 100%;
+}
+.post-comp article .content img.size-large {
+  width: 90%
+}
+.post-comp article .content img.size-medium {
+  width: 60%
+}
+.post-comp article .content img.size-small {
+  width: 35%
+}
+.post-comp article .content img.size-thumbnail {
+  width: 20%;
+}

@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/node_modules/ember-router-scroll/app/services/router-scroll.js

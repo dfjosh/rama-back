@@ -1,0 +1,14 @@
+<footer class="row">
+  <div class="col-sm-2"></div>
+  <nav class="col-sm-8">
+    <ul class="pager">
+      <li class="previous {{if isFirstPage "hidden" ""}}">
+        {{#link-to (query-params limit=limit page=prevPage)}}<span>&larr;</span> Newer{{/link-to}}
+      </li>
+      <li class="next {{if isLastPage "hidden" ""}}">
+        {{#link-to (query-params limit=limit page=nextPage)}}Older <span>&rarr;</span>{{/link-to}}
+      </li>
+    </ul>
+  </nav>
+  <div class="col-sm-2"></div>
+</footer>

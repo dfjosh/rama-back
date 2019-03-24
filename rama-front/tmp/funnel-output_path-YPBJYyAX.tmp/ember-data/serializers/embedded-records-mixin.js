@@ -1,0 +1,1 @@
+/Users/josh/Projects/rama-front/tmp/funnel-input_base_path-chOBQ4Pz.tmp/serializers/embedded-records-mixin.js

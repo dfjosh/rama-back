@@ -1,0 +1,17 @@
+{{#modal-comp modalId="admin_taxonomies_taxonomoy_edit_modal" isRoute=true}}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+    <h4 class="modal-title">Edit {{capitalize model._internalModel.modelName}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="nameInput">Name</label>
+      {{input type="text" class="form-control" id="nameInput" value=proxy.name}}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" {{action "deleteTaxonomy"}}>Delete</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" {{action "editTaxonomy"}}>Save Changes</button>
+  </div>
+{{/modal-comp}}

@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/tmp/broccoli_persistent_filterbabel__babel_ember_router_scroll-output_path-x5FsZ2bE.tmp/ember-router-scroll/locations/router-scroll.js

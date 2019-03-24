@@ -1,0 +1,4 @@
+QUnit.test('rama-front/templates/login.hbs', function(assert) {
+  assert.expect(1);
+  assert.ok(false, 'rama-front/templates/login.hbs should pass TemplateLint.\n\nrama-front/templates/login.hbs\n  8:16  error  Incorrect indentation of attribute \'class\' beginning at L8:C16. Expected \'class\' to be at L9:C10.  attribute-indentation\n  8:37  error  Incorrect indentation of attribute \'type\' beginning at L8:C37. Expected \'type\' to be at L10:C10.  attribute-indentation\n  8:53  error  Incorrect indentation of attribute \'placeholder\' beginning at L8:C53. Expected \'placeholder\' to be at L11:C10.  attribute-indentation\n  8:76  error  Incorrect indentation of attribute \'value\' beginning at L8:C76. Expected \'value\' to be at L12:C10.  attribute-indentation\n  8:90  error  Incorrect indentation of close curly braces \'}}\' for the component \'{{input}}\' beginning at L8:C90. Expected \'{{input}}\' to be at L13:C8.  attribute-indentation\n');
+});

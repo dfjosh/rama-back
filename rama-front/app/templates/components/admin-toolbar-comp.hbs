@@ -1,0 +1,10 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#newPostModal">New Post</button>
+    <div class="btn-group">
+      {{#link-to "posts" class="btn btn-default btn-xs" current-when="projects posts about"}}DistantFutureJOSH{{/link-to}}
+      {{#link-to "admin" class="btn btn-default btn-xs"}}Admin{{/link-to}}
+    </div>
+    <button class="btn btn-primary btn-xs pull-right" {{action "logout"}}>Log out</button>
+  </div>
+</nav>

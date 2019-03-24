@@ -1,0 +1,20 @@
+.taxonomy-comp ul {
+  text-align: right;
+}
+.taxonomy-comp li {
+  margin-bottom: 2px;
+}
+.taxonomy-comp button {
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .taxonomy-comp ul {
+    text-align: left;
+    display: inline-block;
+  }
+  .taxonomy-comp li {
+    margin-bottom: auto;
+    display: inline-block;
+  }
+}

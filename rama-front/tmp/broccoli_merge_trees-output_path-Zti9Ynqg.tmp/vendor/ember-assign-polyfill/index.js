@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/node_modules/ember-assign-polyfill/vendor/ember-assign-polyfill/index.js

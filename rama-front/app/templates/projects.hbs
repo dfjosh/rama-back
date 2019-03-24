@@ -1,0 +1,21 @@
+{{header-comp}}
+
+{{nav-comp}}
+
+<main class="container-fluid">
+  
+  {{#each model as |post|}}
+    {{post-comp
+      post=post
+      showAsterisk=false
+      showFeatureImage=true
+      showTaxonomy=false
+      showAttribution=false
+      showHorizontalRule=false
+      gutterColumns=1
+    }}
+  {{/each}}
+  
+  {{!-- no pagination for now, but some day maybe --}}
+
+</main>

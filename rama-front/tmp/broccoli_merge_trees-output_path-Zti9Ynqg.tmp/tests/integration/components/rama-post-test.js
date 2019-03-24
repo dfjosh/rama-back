@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/tests/integration/components/rama-post-test.js

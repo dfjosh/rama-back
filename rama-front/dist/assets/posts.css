@@ -1,0 +1,17 @@
+.main.container-fluid {
+  margin-top: 44px;
+}
+article .title h1 {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -3.5px;
+}
+article .title h1 span {
+  vertical-align: bottom;
+}
+article .title h1 a {
+  color: #333;
+}
+article .title h1 a:hover {
+  color: #666;
+}

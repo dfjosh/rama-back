@@ -1,0 +1,4 @@
+QUnit.test('rama-front/templates/admin/taxonomies/taxonomy.hbs', function(assert) {
+  assert.expect(1);
+  assert.ok(false, 'rama-front/templates/admin/taxonomies/taxonomy.hbs should pass TemplateLint.\n\nrama-front/templates/admin/taxonomies/taxonomy.hbs\n  3:14  error  Incorrect indentation of positional param \'concat\' beginning at L3:C14. Expected \'concat\' to be at L4:C6.  attribute-indentation\n  3:59  error  Incorrect indentation of positional param \'admin.taxonomies.taxonomy.new\' beginning at L3:C59. Expected \'admin.taxonomies.taxonomy.new\' to be at L5:C6.  attribute-indentation\n  3:91  error  Incorrect indentation of attribute \'class\' beginning at L3:C91. Expected \'class\' to be at L6:C6.  attribute-indentation\n  3:125  error  Incorrect indentation of close curly braces \'}}\' for the component \'{{link-to}}\' beginning at L3:C125. Expected \'{{link-to}}\' to be at L7:C4.  attribute-indentation\n');
+});

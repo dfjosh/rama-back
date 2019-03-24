@@ -1,0 +1,1 @@
+/Users/josh/projects/rama/rama-front/tmp/broccoli_persistent_filterbabel__babel_ember_inflector-output_path-lmZPiN5Z.tmp/ember-inflector/lib/helpers/pluralize.js
