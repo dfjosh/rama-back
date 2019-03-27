@@ -6,7 +6,7 @@
       <div class="col-sm-{{contentColumns}}">
         <h1>
           {{#if post.featureLink}}
-            <a href="">
+            <a href={{concat ENV.publicURL post.featureLink}}>
               {{#if showAsterisk}}
                 <span class="glyphicon glyphicon-asterisk"></span>
               {{/if}}
@@ -27,7 +27,7 @@
     
     {{#if showFeatureImage}}
       <div class="row feature-image">
-        <a href={{post.featureLink}}>
+        <a href={{concat ENV.publicURL post.featureLink}}>
           <img src={{concat ENV.cdnURL post.featureImage}}>
         </a>
       </div>

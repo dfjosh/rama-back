@@ -7,8 +7,6 @@ module.exports = function(environment) {
     rootURL: '/',
     locationType: 'router-scroll', // 'auto'
     historySupportMiddleware: true,
-    apiURL: 'http://localhost:3000/api',
-    cdnURL: 'http://localhost:3000',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -27,6 +25,10 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    ENV.publicURL = 'http://localhost:3000';
+    ENV.apiURL = ENV.publicURL + '/api';
+    ENV.cdnURL = ENV.publicURL;
+    
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -35,6 +37,10 @@ module.exports = function(environment) {
   }
 
   if (environment === 'test') {
+    ENV.publicURL = 'http://localhost:3000';
+    ENV.apiURL = ENV.publicURL + '/api';
+    ENV.cdnURL = ENV.publicURL;
+
     // Testem prefers this...
     ENV.locationType = 'none';
 
@@ -48,7 +54,8 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
-    ENV.apiURL = 'https://distant-future-josh.herokuapp.com/api';
+    ENV.publicURL = 'https://www.distantfuturejosh.com';
+    ENV.apiURL = ENV.publicURL + '/api';
     ENV.cdnURL = 'https://s3-us-west-1.amazonaws.com/lazy-rama';
   }
 
