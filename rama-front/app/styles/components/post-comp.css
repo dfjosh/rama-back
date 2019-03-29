@@ -52,3 +52,21 @@
 .post-comp article .content img.size-thumbnail {
   width: 20%;
 }
+
+@media screen and (max-width: 768px) {
+  .post-comp article h1 {
+    font-size: 48px;
+  }
+  .post-comp .feature-image img {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .post-comp article h1 {
+    font-size: 42px;
+  }
+  .post-comp .feature-image img {
+    height: 150px;
+  }
+}
