@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2019_01_05_043406) do
 
   create_table "posts", id: :serial, force: :cascade do |t|
     t.string "title"
+    t.string "slug"
     t.string "author"
     t.text "body"
     t.datetime "created_at", null: false
