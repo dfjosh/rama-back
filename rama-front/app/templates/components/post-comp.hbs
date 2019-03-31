@@ -13,7 +13,7 @@
               {{post.title}}
             </a>
           {{else}}
-            {{#link-to "post" post}}
+            {{#link-to "post" post.slug}}
               {{#if showAsterisk}}
                 <span class="glyphicon glyphicon-asterisk"></span>
               {{/if}}

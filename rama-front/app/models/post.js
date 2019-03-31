@@ -13,6 +13,7 @@ export default Model.extend({
   postTags: hasMany('post-tag', {async: true}),
 
   title: attr(),
+  slug: attr(),
   author: attr(),
   body: attr(),
   featureImage: attr(),

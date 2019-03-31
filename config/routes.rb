@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :categories
     resources :comments
-    resources :posts do
+    resources :posts, param: :slug do
       resources :post_tags
     end
     resources :post_categories
