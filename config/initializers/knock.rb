@@ -37,7 +37,7 @@ Knock.setup do |config|
   ##
   ## Default:
   # config.token_secret_signature_key = -> { Rails.application.secrets.secret_key_base }
-  config.token_secret_signature_key = -> { ENV["SECRET_KEY_BASE"] }
+  config.token_secret_signature_key = -> { ENV["SECRET_KEY_BASE"] } # you absolutely need this. Throws `TypeError: no implicit conversion of nil into String` otherwise
 
   ## If using Auth0, uncomment the line below
   # config.token_secret_signature_key = -> { JWT.base64url_decode Rails.application.secrets.auth0_client_secret }
