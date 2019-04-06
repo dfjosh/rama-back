@@ -10,8 +10,9 @@ Rails.application.routes.draw do
     resources :sessions
     resources :tags
     resources :users
-    post "user_token" => "user_token#create"
+    post 'user_token' => 'user_token#create'
   end
   
-  get "*path", :to => redirect("index.html")
+  get '*path', to: 'root#index'
+  root 'root#index'
 end
