@@ -10,12 +10,12 @@ $(document).ready(function() {
 	function fillBackground(x) {
 		for (var i in x) {
 			// Display a flags in background
-			$(".background").append("<img src='img/flags/" + x[i].nation + ".svg' class='bg'>");
+			$(".background").append("<img src='https://s3-us-west-1.amazonaws.com/lazy-rama/landjacks/img/flags/" + x[i].nation + ".svg' class='bg'>");
 		}
 	}
 	
 	function loadGallery(x) {
-		$("#content").load("gallery.html");
+		$("#content").load("landjacks/gallery.html");
 		$("nav a").removeClass("active");
 		x.addClass("active");
 		
@@ -69,7 +69,7 @@ $(document).ready(function() {
 	}
 	
 	function loadList(x) {
-		$("#content").load("list.html");
+		$("#content").load("landjacks/list.html");
 		$("nav a").removeClass("active");
 		x.addClass("active");
 		
@@ -85,7 +85,7 @@ $(document).ready(function() {
 		for (var i in x) {
 			// Display a flag in the tray
 			var prettyName = x[i].nation.replace(/_/g, " ");
-			$(".nation_tray").append("<a href='javascript:;' id='" + x[i].nation + "' class='nation scrollable' title='" + prettyName + "'><img src='img/flags/" + x[i].nation + ".svg' class='scrollable'></a>");
+			$(".nation_tray").append("<a href='javascript:;' id='" + x[i].nation + "' class='nation scrollable' title='" + prettyName + "'><img src='https://s3-us-west-1.amazonaws.com/lazy-rama/landjacks/img/flags/" + x[i].nation + ".svg' class='scrollable'></a>");
 			// Add the widths plus the margins
 			
 			var flagRatio = x[i].meta.width / x[i].meta.height;
@@ -175,7 +175,7 @@ $(document).ready(function() {
 		}
 		var prettyName = matchedNation.nation.replace(/_/g, " ");
 		$(".nation_display .nation_large_flag, .nation_display .nation_info").empty();
-		$(".nation_display .nation_large_flag").append("<img src='img/flags/" + matchedNation.nation + ".svg' class='big' title='" + prettyName + "'>");
+		$(".nation_display .nation_large_flag").append("<img src='https://s3-us-west-1.amazonaws.com/lazy-rama/landjacks/img/flags/" + matchedNation.nation + ".svg' class='big' title='" + prettyName + "'>");
 		$(".nation_display .nation_info").append("<h2 title='nation'>" + prettyName + "</h2>");
 		$(".nation_display .nation_info").append("<p class='nation_name' title='continent'>" + continentDict[matchedNation.meta.continent] + "</p>");
 		$(".nation_display .nation_info").append("<p class='proportion' title='proportions'>" + matchedNation.meta.height + ":" + matchedNation.meta.width + "</p>");
@@ -186,7 +186,7 @@ $(document).ready(function() {
 		for (var i in x) {
 			// Display each flag
 			var prettyName = x[i].nation.replace(/_/g, " ");
-			$("section").append("<a href='javascript:;' id='" + x[i].nation + "' class='list_item' title='" + prettyName + "'><div class='flag'><img src='img/flags/" + x[i].nation + ".svg'></div><div class='info'><h2>" + prettyName + "</h2><p>" + continentDict[x[i].meta.continent] + "</p><p>" + x[i].meta.height + ":" + x[i].meta.width + "</p></div></a>");
+			$("section").append("<a href='javascript:;' id='" + x[i].nation + "' class='list_item' title='" + prettyName + "'><div class='flag'><img src='https://s3-us-west-1.amazonaws.com/lazy-rama/landjacks/img/flags/" + x[i].nation + ".svg'></div><div class='info'><h2>" + prettyName + "</h2><p>" + continentDict[x[i].meta.continent] + "</p><p>" + x[i].meta.height + ":" + x[i].meta.width + "</p></div></a>");
 		}
 		$("section").append("<div class='cf'></div>");		
 	}
@@ -205,7 +205,7 @@ $(document).ready(function() {
     $.ajaxSetup({
         async: false
     });
-    $.getJSON("js/flags.json", function(data) {
+    $.getJSON("landjacks/js/flags.json", function(data) {
     	$(data.flags).each(function(i) {
 		    countries.push(data.flags[i]);
     	});		
