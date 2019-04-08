@@ -6,4 +6,8 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
 
   has_many :comments, dependent: :destroy
+  
+  DRAFT = "DRAFT"
+  PUBLISHED = "PUBLISHED"
+  ARCHIVED = "ARCHIVED"
 end

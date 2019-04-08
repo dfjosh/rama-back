@@ -54,6 +54,6 @@ class Api::PostsController < ApplicationController
   private
   
   def post_params
-    params.require(:data).require(:attributes).permit(:title, :author, :body, :created_at, :updated_at, :feature_image, :feature_link)
+    params.require(:data).require(:attributes).permit(:title, :author, :body, :state, :created_at, :updated_at, :feature_image, :feature_link)
   end
 end
