@@ -2,11 +2,33 @@ class Api::PostsController < ApplicationController
   before_action :authenticate_user, only: [:create, :update, :destroy]
   
   def index
-    posts = Post.all
+    posts = Post.all # FIXME this is terrible. I get them all no matter what
     
-    if filter = params[:filter]
-      posts = posts.joins(filter[:name].split(".")[0..-2].map(&:to_sym))
-                   .where("#{filter[:name]} #{filter[:op]} ?", filter[:val])
+    # joins = []
+    # conditions = []
+    # expressions = []
+    clauses = []
+    if filters = params[:filters]
+      filters.each do |filter|
+        # joins << filter[:name].split(".")[0..-2].map(&:to_sym)
+        # posts = posts.joins(filter[:name].split(".")[0..-2].map(&:to_sym))
+        #              .where("#{filter[:name]} #{filter[:op]} ?", filter[:val])
+        
+        # joins += filter[:name].split(".")[0..-2].join(".") # I could improve this logic with regex
+        # conditions << "#{filter[:name]} #{filter[:op]} ?"
+        # expressions << filter[:val]
+        filter = filter.second
+        clauses << [
+          filter[:name].split(".")[0..-2].first&.to_sym, 
+          "#{filter[:name]} #{filter[:op]} ?", 
+          filter[:val]
+        ]
+      end
+    end
+    
+    # posts.joins(joins)
+    clauses.each do |clause|
+      posts = posts.joins(clause[0]).where(clause[1], clause[2])
     end
     
     limit = params[:limit]&.to_i
@@ -29,8 +51,10 @@ class Api::PostsController < ApplicationController
   end
   
   def create
-    post = Post.create!(post_params)
-    if post
+    # post = Post.create!(post_params)
+    post = Post.new(post_params)
+    post.user_id = params[:data][:relationships][:user][:data][:id] # HACK
+    if post.save!
       render json: PostSerializer.new(post).serialized_json
     else
       render json: {error: 400}
@@ -54,7 +78,7 @@ class Api::PostsController < ApplicationController
   private
   
   def post_params
-    permitted = [:title, :slug, :author, :body, :state, :created_at, :updated_at, :feature_image, :feature_link]
+    permitted = [:title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link]
     params.require(:data).require(:attributes).permit(*permitted)
   end
 end

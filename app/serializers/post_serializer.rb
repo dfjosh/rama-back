@@ -1,7 +1,8 @@
 class PostSerializer
   include FastJsonapi::ObjectSerializer
   
-  attributes :title, :slug, :author, :body, :state, :created_at, :updated_at, :feature_image, :feature_link
+  attributes :title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link
+  belongs_to :user
   has_many :categories#, lazy_load_data: true
   has_many :tags#, lazy_load_data: true
   has_many :comments#, lazy_load_data: true
