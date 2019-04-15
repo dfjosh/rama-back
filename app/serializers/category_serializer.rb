@@ -1,6 +1,7 @@
 class CategorySerializer
   include FastJsonapi::ObjectSerializer
-  
+  # set_key_transform :dash
+
   attributes :name, :created_at, :updated_at
   # has_many :posts
 

@@ -1,16 +1,17 @@
 class PostSerializer
   include FastJsonapi::ObjectSerializer
-  
+  # set_key_transform :dash
+
   attributes :title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link
   belongs_to :user
-  has_many :categories#, lazy_load_data: true
-  has_many :tags#, lazy_load_data: true
+  has_many :post_categories#, lazy_load_data: true
+  has_many :post_tags#, lazy_load_data: true
   has_many :comments#, lazy_load_data: true
-  has_many :post_tags, links: {
-    related: -> (object) {
-      "http://localhost:3000/posts/#{object.id}/post_tags"
-    }
-  }
+  # has_many :post_tags, links: {
+  #   related: -> (object) {
+  #     "http://localhost:3000/posts/#{object.id}/post_tags"
+  #   }
+  # }
   # has_many :tags, lazy_load_data: true, links: {
   #   related: -> (object) {
   #     "http://localhost:3000/posts/#{object.id}/tags"
