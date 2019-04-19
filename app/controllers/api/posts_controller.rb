@@ -46,7 +46,7 @@ class Api::PostsController < ApplicationController
   end
   
   def show
-    post = Post.find(params[:id])
+    post = Post.find_by_slug(params[:slug])
     render json: PostSerializer.new(post).serialized_json
   end
   
@@ -63,6 +63,7 @@ class Api::PostsController < ApplicationController
   
   def update
     post = Post.find(params[:id])
+    # post = Post.find_by_slug(params[:slug])
     if post.update_attributes!(post_params)
       render json: PostSerializer.new(post).serialized_json
     else
@@ -72,6 +73,7 @@ class Api::PostsController < ApplicationController
   
   def destroy
     post = Post.find(params[:id])
+    # post = Post.find_by_slug(params[:slug])
     post.destroy!
   end
   
