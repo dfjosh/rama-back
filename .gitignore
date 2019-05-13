@@ -21,3 +21,6 @@
 
 # Ignore image assets
 /public/uploads
+
+# this gets generated on prod. wouldn't want to overwrite it with an old one
+/public/science-fiction-shorts.xml
