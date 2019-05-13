@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_15_041135) do
+ActiveRecord::Schema.define(version: 2019_05_12_041353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,30 @@ ActiveRecord::Schema.define(version: 2019_04_15_041135) do
   end
 
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
+  create_table "enclosures", force: :cascade do |t|
+    t.string "url"
+    t.integer "size"
+    t.string "mime_type"
+    t.integer "episode_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "podcasts", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "website"
+    t.string "listing_type"
+    t.integer "user_id"
+    t.string "feed"
+    t.string "image"
+    t.string "category"
+    t.string "subcategory"
+    t.boolean "explicit", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "post_categories", id: :serial, force: :cascade do |t|
@@ -59,6 +83,10 @@ ActiveRecord::Schema.define(version: 2019_04_15_041135) do
     t.string "feature_link"
     t.string "state"
     t.integer "user_id"
+    t.string "type"
+    t.integer "podcast_id"
+    t.integer "duration"
+    t.boolean "explicit"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 
@@ -76,6 +104,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_041135) do
     t.boolean "is_admin", default: false
     t.string "first_name"
     t.string "last_name"
+    t.string "pen_name"
   end
 
 end
