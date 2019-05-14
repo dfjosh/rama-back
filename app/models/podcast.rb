@@ -7,10 +7,9 @@ class Podcast < ApplicationRecord
     explicit == true ? "yes" : "no"
   end
   
-  def create_rss_feed!
-    file_path = File.join('tmp', feed)
-    File.open(file_path, 'w') do |f|
-      f << <<-HEREDOC
+  def create_and_upload_rss_feed!
+    rss = Tempfile.new
+      rss << <<-HEREDOC
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
@@ -33,7 +32,7 @@ class Podcast < ApplicationRecord
       HEREDOC
       
       episodes.where(state: Post::PUBLISHED).order(created_at: :desc).each do |episode|
-        f << <<-HEREDOC
+        rss << <<-HEREDOC
     <item>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:title>#{episode.title}</itunes:title>
@@ -55,10 +54,15 @@ class Podcast < ApplicationRecord
         HEREDOC
       end
       
-      f << <<-HEREDOC
+      rss << <<-HEREDOC
   </channel>
 </rss>
       HEREDOC
-    end
+    rss.close
+    
+    target = File.join(title.parameterize, "#{title.parameterize}.xml")
+    S3Api.upload_file!(rss.path, target)
+    
+    rss.unlink
   end
 end
