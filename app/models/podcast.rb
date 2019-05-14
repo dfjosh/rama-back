@@ -8,7 +8,7 @@ class Podcast < ApplicationRecord
   end
   
   def create_rss_feed!
-    file_path = Rails.root.join('public', feed)
+    file_path = Rails.root.join('tmp', feed)
     File.open(file_path, 'w') do |f|
       f << <<-HEREDOC
 <?xml version="1.0" encoding="UTF-8"?>
