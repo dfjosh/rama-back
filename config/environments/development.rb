@@ -47,5 +47,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   
+  config.web_url = "http://localhost:4200"
   config.cdn_url = "https://s3-us-west-1.amazonaws.com/lazy-rama"
 end

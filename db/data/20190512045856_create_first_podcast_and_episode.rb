@@ -28,9 +28,9 @@ class CreateFirstPodcastAndEpisode < ActiveRecord::Migration[5.2]
         duration: 3309,
         explicit: false,
         enclosure: Enclosure.create!(
-          url: "science-fiction-shorts/episodes/the-brick-moon-1.m4a",
-          size: 53646420,
-          mime_type: "audio/x-m4a"
+          url: "science-fiction-shorts/episodes/the-brick-moon-1.mp3",
+          size: 33090496,
+          mime_type: "audio/mpeg"
         )
       )
     end

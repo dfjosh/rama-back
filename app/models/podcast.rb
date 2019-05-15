@@ -46,6 +46,7 @@ class Podcast < ApplicationRecord
         type="#{episode.enclosure.mime_type}" 
         url="#{File.join(Rails.configuration.cdn_url, episode.enclosure.url)}"
       />
+      <link>#{File.join(Rails.configuration.web_url, "posts", episode.slug)}</link>
       <guid>#{episode.slug}</guid>
       <pubDate>#{episode.created_at.rfc2822}</pubDate>
       <itunes:duration>#{episode.duration}</itunes:duration>
