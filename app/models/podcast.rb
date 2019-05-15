@@ -24,7 +24,7 @@ class Podcast < ApplicationRecord
       <itunes:name>#{author.pen_name}</itunes:name>
       <itunes:email>#{author.email}</itunes:email>
     </itunes:owner>
-    <itunes:image href="#{Addressable::URI.join(Rails.configuration.cdn_url, image)}"/>
+    <itunes:image href="#{File.join(Rails.configuration.cdn_url, image)}"/>
     <itunes:category text="#{CGI::escapeHTML(category)}">
       <itunes:category text="#{CGI::escapeHTML(subcategory)}"/>
     </itunes:category>
@@ -44,7 +44,7 @@ class Podcast < ApplicationRecord
       <enclosure 
         length="#{episode.enclosure.size}" 
         type="#{episode.enclosure.mime_type}" 
-        url="#{Addressable::URI.join(Rails.configuration.cdn_url, episode.enclosure.url)}"
+        url="#{File.join(Rails.configuration.cdn_url, episode.enclosure.url)}"
       />
       <guid>#{episode.slug}</guid>
       <pubDate>#{episode.created_at.rfc2822}</pubDate>
