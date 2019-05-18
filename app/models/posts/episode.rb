@@ -5,6 +5,6 @@ class Posts::Episode < Post
   after_save :update_podcast_rss_feed!
   
   def update_podcast_rss_feed!
-    podcast.create_and_upload_rss_feed!
+    podcast.create_rss_feed!(upload: Rails.env.production?)
   end
 end

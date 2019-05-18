@@ -7,18 +7,18 @@ class Podcast < ApplicationRecord
     explicit == true ? "yes" : "no"
   end
   
-  def create_and_upload_rss_feed!
+  def create_rss_feed!(upload: false)
     rss = Tempfile.new
-      rss << <<-HEREDOC
+    rss << <<-HEREDOC
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>#{title}</title>
+    <title>#{CGI::escapeHTML(title)}</title>
     <link>#{website}</link>
     <language>en-us</language>
     <copyright>&#169; #{Time.now.year} #{author.pen_name}</copyright>
     <itunes:author>#{author.pen_name}</itunes:author>
-    <description>#{description}</description>
+    <description>#{CGI::escapeHTML(description)}</description>
     <itunes:type>#{listing_type}</itunes:type>
     <itunes:owner>
       <itunes:name>#{author.pen_name}</itunes:name>
@@ -31,16 +31,12 @@ class Podcast < ApplicationRecord
     <itunes:explicit>#{explicit}</itunes:explicit>
       HEREDOC
       
-      episodes.where(state: Post::PUBLISHED).order(created_at: :desc).each do |episode|
-        rss << <<-HEREDOC
+    episodes.where(state: Post::PUBLISHED).order(created_at: :desc).each do |episode|
+      rss << <<-HEREDOC
     <item>
       <itunes:episodeType>full</itunes:episodeType>
-      <itunes:title>#{episode.title}</itunes:title>
-      <description>
-        <content:encoded>
-          <![CDATA[#{episode.body}]]>
-        </content:encoded>
-      </description>
+      <title>#{CGI::escapeHTML(episode.title)}</title>
+      <description>#{CGI::escapeHTML(episode.body)}</description>
       <enclosure 
         length="#{episode.enclosure.size}" 
         type="#{episode.enclosure.mime_type}" 
@@ -53,17 +49,21 @@ class Podcast < ApplicationRecord
       <itunes:explicit>#{episode.explicit}</itunes:explicit>
     </item>
         HEREDOC
-      end
+    end
       
-      rss << <<-HEREDOC
+    rss << <<-HEREDOC
   </channel>
 </rss>
       HEREDOC
-    rss.close
     
-    target = File.join(title.parameterize, "#{title.parameterize}.xml")
-    S3Api.upload_file!(rss.path, target)
+    if upload
+      target = File.join(title.parameterize, "#{title.parameterize}.xml")
+      S3Api.upload_file!(rss.path, target)
+    else
+      rss.rewind
+      puts rss.read
+    end
     
-    rss.unlink
+    rss.close! # closes and unlinks (deletes)
   end
 end
