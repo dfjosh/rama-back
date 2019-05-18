@@ -34,9 +34,12 @@ class Podcast < ApplicationRecord
     episodes.where(state: Post::PUBLISHED).order(created_at: :desc).each do |episode|
       rss << <<-HEREDOC
     <item>
-      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:episodeType>#{episode.episode_type}</itunes:episodeType>
+      <itunes:episode>#{episode.number}</itunes:episode>
       <title>#{CGI::escapeHTML(episode.title)}</title>
+      <itunes:title>#{CGI::escapeHTML(episode.title)}</itunes:title>
       <description>#{CGI::escapeHTML(episode.body)}</description>
+      <itunes:summary>#{CGI::escapeHTML(episode.body)}</itunes:summary>
       <enclosure 
         length="#{episode.enclosure.size}" 
         type="#{episode.enclosure.mime_type}" 

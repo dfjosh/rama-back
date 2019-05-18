@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_12_041353) do
+ActiveRecord::Schema.define(version: 2019_05_18_212558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 2019_05_12_041353) do
     t.integer "podcast_id"
     t.integer "duration"
     t.boolean "explicit"
+    t.integer "episode_number"
+    t.string "episode_type"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 
