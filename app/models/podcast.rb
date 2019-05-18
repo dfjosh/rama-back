@@ -60,11 +60,12 @@ class Podcast < ApplicationRecord
       rss.close
       target = File.join(title.parameterize, "#{title.parameterize}.xml")
       S3Api.upload_file!(rss.path, target)
-    else
-      rss.rewind
-      puts rss.read
-      rss.close
+      rss.open
     end
+    
+    rss.rewind
+    puts rss.read
+    rss.close
     
     rss.unlink
   end
