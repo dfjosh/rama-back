@@ -57,13 +57,15 @@ class Podcast < ApplicationRecord
       HEREDOC
     
     if upload
+      rss.close
       target = File.join(title.parameterize, "#{title.parameterize}.xml")
       S3Api.upload_file!(rss.path, target)
     else
       rss.rewind
       puts rss.read
+      rss.close
     end
     
-    rss.close! # closes and unlinks (deletes)
+    rss.unlink
   end
 end
