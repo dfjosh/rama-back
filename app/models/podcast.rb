@@ -35,7 +35,7 @@ class Podcast < ApplicationRecord
       rss << <<-HEREDOC
     <item>
       <itunes:episodeType>#{episode.episode_type}</itunes:episodeType>
-      <itunes:episode>#{episode.number}</itunes:episode>
+      <itunes:episode>#{episode.episode_number}</itunes:episode>
       <title>#{CGI::escapeHTML(episode.title)}</title>
       <itunes:title>#{CGI::escapeHTML(episode.title)}</itunes:title>
       <description>#{CGI::escapeHTML(episode.body)}</description>
