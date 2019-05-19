@@ -83,12 +83,12 @@ ActiveRecord::Schema.define(version: 2019_05_18_212558) do
     t.string "feature_link"
     t.string "state"
     t.integer "user_id"
-    t.string "type"
-    t.integer "podcast_id"
-    t.integer "duration"
-    t.boolean "explicit"
-    t.integer "episode_number"
     t.string "episode_type"
+    t.integer "episode_number"
+    t.boolean "explicit"
+    t.integer "duration"
+    t.integer "podcast_id"
+    t.string "type"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 

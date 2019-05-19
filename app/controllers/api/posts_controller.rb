@@ -2,7 +2,6 @@ class Api::PostsController < ApplicationController
   before_action :authenticate_user, only: [:create, :update, :destroy]
   
   def index
-    puts "POSTS!"
     posts = Post.all # FIXME this is terrible. I get them all no matter what
     
     # joins = []
