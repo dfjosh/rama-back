@@ -14,4 +14,13 @@ class Post < ApplicationRecord
     PUBLISHED = "PUBLISHED"
     ARCHIVED = "ARCHIVED"
   end
+  
+  def self.where_state(states: [])
+    self.where(state: states)
+  end
+  
+  def self.where_has_tag_name(tag_names: [])
+    self.joins(:tags)
+        .where(tags: {name: tag_names})
+  end
 end

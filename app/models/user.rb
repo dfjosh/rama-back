@@ -5,4 +5,8 @@ class User < ApplicationRecord
   has_many :posts
   has_many :episodes
   has_many :podcasts
+  
+  def is_admin?
+    is_admin
+  end
 end

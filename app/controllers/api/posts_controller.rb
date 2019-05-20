@@ -2,34 +2,34 @@ class Api::PostsController < ApplicationController
   before_action :authenticate_user, only: [:create, :update, :destroy]
   
   def index
-    posts = Post.all # FIXME this is terrible. I get them all no matter what
-    
-    # joins = []
-    # conditions = []
-    # expressions = []
+    posts = Post.all # I would think it would be bad to do a Post.all and then later do more #where calls, but it doesn't actually appear to make a separate db query here...don't know why
     clauses = []
+    
+    if !current_user&.is_admin?
+      clauses << {
+        join: nil,
+        where: "state = ?",
+        arg: Post::States::PUBLISHED
+      }
+    end
+    
     if filters = params[:filters]
       filters.each do |filter|
-        # joins << filter[:name].split(".")[0..-2].map(&:to_sym)
-        # posts = posts.joins(filter[:name].split(".")[0..-2].map(&:to_sym))
-        #              .where("#{filter[:name]} #{filter[:op]} ?", filter[:val])
-        
-        # joins += filter[:name].split(".")[0..-2].join(".") # I could improve this logic with regex
-        # conditions << "#{filter[:name]} #{filter[:op]} ?"
-        # expressions << filter[:val]
         filter = filter.second
-        clauses << [
-          filter[:name].split(".")[0..-2].first&.to_sym, 
-          "#{filter[:name]} #{filter[:op]} ?", 
-          filter[:val]
-        ]
+        clauses << {
+          join: filter[:name].split(".")[0..-2].first&.to_sym, 
+          where: "#{filter[:name]} #{filter[:op]} ?", 
+          arg: filter[:val]
+        }
       end
     end
     
-    # posts.joins(joins)
     clauses.each do |clause|
-      posts = posts.joins(clause[0]).where(clause[1], clause[2])
+      posts = posts.joins(clause[:join]).where(clause[:where], clause[:arg])
     end
+    # posts = clauses.inject(Post.all) do |scope, clause|
+    #   scope.joins(clause[0]).where(clause[1], clause[2])
+    # end
     
     limit = params[:limit]&.to_i
     offset = limit ? (params[:page]&.to_i - 1) * limit : nil
