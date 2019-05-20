@@ -24,7 +24,7 @@ class CreateFirstPodcastAndEpisode < ActiveRecord::Migration[5.2]
         title: "The Brick Moon, pt 1",
         slug: "the-brick-moon-pt-1",
         body: "We begin with a story concerning the age old problem of the longitude. The solution proposed could prove to be 'the blessing of all seamen...the second cynosure of all lovers upon the waves'.",
-        state: Post::PUBLISHED,
+        state: Post::States::PUBLISHED,
         user: user,
         podcast: podcast,
         duration: 3309,

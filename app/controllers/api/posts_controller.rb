@@ -2,34 +2,26 @@ class Api::PostsController < ApplicationController
   before_action :authenticate_user, only: [:create, :update, :destroy]
   
   def index
-    puts "POSTS!"
-    posts = Post.all # FIXME this is terrible. I get them all no matter what
+    posts = Post.all # I would think it would be bad to do a Post.all and then later do more #where calls, but it doesn't actually appear to make a separate db query here...don't know why
+    scopes = []
     
-    # joins = []
-    # conditions = []
-    # expressions = []
-    clauses = []
+    if !current_user&.is_admin?
+      scopes << { scope: :where_state, args: [Post::States::PUBLISHED] }
+    end
+    
     if filters = params[:filters]
       filters.each do |filter|
-        # joins << filter[:name].split(".")[0..-2].map(&:to_sym)
-        # posts = posts.joins(filter[:name].split(".")[0..-2].map(&:to_sym))
-        #              .where("#{filter[:name]} #{filter[:op]} ?", filter[:val])
-        
-        # joins += filter[:name].split(".")[0..-2].join(".") # I could improve this logic with regex
-        # conditions << "#{filter[:name]} #{filter[:op]} ?"
-        # expressions << filter[:val]
         filter = filter.second
-        clauses << [
-          filter[:name].split(".")[0..-2].first&.to_sym, 
-          "#{filter[:name]} #{filter[:op]} ?", 
-          filter[:val]
-        ]
+        scopes << {
+          scope: "where_#{filter[:scope]}".to_sym, 
+          args: filter[:args]
+        }
       end
     end
     
-    # posts.joins(joins)
-    clauses.each do |clause|
-      posts = posts.joins(clause[0]).where(clause[1], clause[2])
+    posts = scopes.inject(Post.all) do |model, scope|
+      puts "scoping #{model.name} --> #{scope.inspect}"
+      model.send(scope[:scope], *scope[:args])
     end
     
     limit = params[:limit]&.to_i
@@ -81,7 +73,7 @@ class Api::PostsController < ApplicationController
   private
   
   def post_params
-    permitted = [:title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link, :type]
+    permitted = [:title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link]
     params.require(:data).require(:attributes).permit(*permitted)
   end
 end
