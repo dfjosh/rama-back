@@ -3,33 +3,26 @@ class Api::PostsController < ApplicationController
   
   def index
     posts = Post.all # I would think it would be bad to do a Post.all and then later do more #where calls, but it doesn't actually appear to make a separate db query here...don't know why
-    clauses = []
+    scopes = []
     
     if !current_user&.is_admin?
-      clauses << {
-        join: nil,
-        where: "state = ?",
-        arg: Post::States::PUBLISHED
-      }
+      scopes << { scope: :where_state, args: [Post::States::PUBLISHED] }
     end
     
     if filters = params[:filters]
       filters.each do |filter|
         filter = filter.second
-        clauses << {
-          join: filter[:name].split(".")[0..-2].first&.to_sym, 
-          where: "#{filter[:name]} #{filter[:op]} ?", 
-          arg: filter[:val]
+        scopes << {
+          scope: "where_#{filter[:scope]}".to_sym, 
+          args: filter[:args]
         }
       end
     end
     
-    clauses.each do |clause|
-      posts = posts.joins(clause[:join]).where(clause[:where], clause[:arg])
+    posts = scopes.inject(Post.all) do |model, scope|
+      puts "scoping #{model.name} --> #{scope.inspect}"
+      model.send(scope[:scope], *scope[:args])
     end
-    # posts = clauses.inject(Post.all) do |scope, clause|
-    #   scope.joins(clause[0]).where(clause[1], clause[2])
-    # end
     
     limit = params[:limit]&.to_i
     offset = limit ? (params[:page]&.to_i - 1) * limit : nil

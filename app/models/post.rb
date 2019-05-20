@@ -15,12 +15,22 @@ class Post < ApplicationRecord
     ARCHIVED = "ARCHIVED"
   end
   
-  def self.where_state(states: [])
+  def self.where_state(states = [])
     self.where(state: states)
   end
   
-  def self.where_has_tag_name(tag_names: [])
+  def self.where_tags(tags = [])
     self.joins(:tags)
-        .where(tags: {name: tag_names})
+        .where(tags: {name: tags})
+  end
+
+  def self.where_categories(categories = [])
+    self.joins(:categories)
+        .where(categories: {name: categories})
+  end
+
+  def self.where_not_categories(categories = [])
+    self.joins(:categories)
+        .where.not(categories: {name: categories})
   end
 end
