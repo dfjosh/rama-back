@@ -80,7 +80,7 @@ class Api::PostsController < ApplicationController
   private
   
   def post_params
-    permitted = [:title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link, :type]
+    permitted = [:title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link]
     params.require(:data).require(:attributes).permit(*permitted)
   end
 end
