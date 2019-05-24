@@ -3,6 +3,7 @@ class PostSerializer
   # set_key_transform :dash
 
   attributes :title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link
+  
   belongs_to :user
   has_many :post_categories#, lazy_load_data: true
   has_many :post_tags#, lazy_load_data: true

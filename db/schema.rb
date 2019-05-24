@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_18_212558) do
+ActiveRecord::Schema.define(version: 2019_05_20_183806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,11 +44,29 @@ ActiveRecord::Schema.define(version: 2019_05_18_212558) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "episodes", force: :cascade do |t|
+    t.string "title"
+    t.string "guid"
+    t.string "summary"
+    t.integer "number"
+    t.string "episode_type"
+    t.datetime "pub_date"
+    t.integer "duration"
+    t.boolean "explicit"
+    t.string "image"
+    t.string "state"
+    t.integer "podcast_id"
+    t.integer "post_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "podcasts", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.string "website"
-    t.string "listing_type"
+    t.string "podcast_type"
     t.integer "user_id"
     t.string "feed"
     t.string "image"
@@ -57,6 +75,9 @@ ActiveRecord::Schema.define(version: 2019_05_18_212558) do
     t.boolean "explicit", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.string "state"
+    t.string "header_image"
   end
 
   create_table "post_categories", id: :serial, force: :cascade do |t|
@@ -83,12 +104,6 @@ ActiveRecord::Schema.define(version: 2019_05_18_212558) do
     t.string "feature_link"
     t.string "state"
     t.integer "user_id"
-    t.string "episode_type"
-    t.integer "episode_number"
-    t.boolean "explicit"
-    t.integer "duration"
-    t.integer "podcast_id"
-    t.string "type"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 

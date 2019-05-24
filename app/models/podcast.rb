@@ -8,6 +8,10 @@ class Podcast < ApplicationRecord
     SERIAL = "serial"
   end
   
+  def self.where_state(states = [])
+    self.where(state: states)
+  end
+
   def explicit_str
     explicit == true ? "yes" : "no"
   end

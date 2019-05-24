@@ -15,6 +15,10 @@ class Post < ApplicationRecord
     ARCHIVED = "ARCHIVED"
   end
   
+  def self.where_post_id(id = [])
+    self.where(id: id)
+  end
+  
   def self.where_state(states = [])
     self.where(state: states)
   end
