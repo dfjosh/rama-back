@@ -8,10 +8,10 @@ class CreateFirstPodcastAndEpisode < ActiveRecord::Migration[5.2]
       podcast = Podcast.create!(
         title: "Science Fiction Shorts",
         description: "I read sci-fi stories to you while you drive to work, walk the dog, or try and fall asleep. Then maybe I give you my thoughts on the story, followed by you tweeting me your own commentary. We all become best friends and fly away in hover cars into a binary sunset.",
-        website: "https://www.distantfuturejosh.com",
+        website: "https://www.distantfuturejosh.com/podcasts/science-fiction-shorts",
         listing_type: "episodic",
         user: user,
-        feed: "science-fiction-shorts.xml",
+        feed: "science-fiction-shorts/science-fiction-shorts.xml", # looks like I dont use this anymore
         image: "science-fiction-shorts/science-fiction-shorts-artwork.png",
         category: "Arts",
         subcategory: "Literature",

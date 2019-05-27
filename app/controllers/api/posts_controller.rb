@@ -25,30 +25,30 @@ class Api::PostsController < ApplicationController
     end
     
     limit = params[:limit]&.to_i
-    offset = limit ? (params[:page]&.to_i - 1) * limit : nil
+    page = params[:page]&.to_i
+    offset = limit && page ? (page - 1) * limit : nil
     
-    posts = posts.group("posts.id").order("posts.created_at DESC")
+    posts = posts.group("posts.id").order("posts.published_at DESC")
     total = posts.length # NOTE must happen AFTER grouping! TODO or should I be sending the number of pages?
     posts = posts.includes(params[:includes]).limit(limit).offset(offset) # NOTE only gets includes for the paginated subset. Much more efficient!
 
-    options = {
-      include: params[:includes], 
-      meta: {total: total}
-    }
-    render json: PostSerializer.new(posts, options).serialized_json
+    # options = { # need to rethink includes after having switched to AMS. right now just sideloading everyting in serializer
+    #   include: params[:includes], 
+    #   meta: {total: total}
+    # }
+    render json: posts, meta: {total: total}
   end
   
   def show
     post = Post.find_by_slug(params[:slug])
-    render json: PostSerializer.new(post).serialized_json
+    render json: post
   end
   
   def create
-    # post = Post.create!(post_params)
     post = Post.new(post_params)
-    post.user_id = params[:data][:relationships][:user][:data][:id] # HACK
+    post.published_at = DateTime.now.utc # TODO allow this to be set in the UI
     if post.save!
-      render json: PostSerializer.new(post).serialized_json
+      render json: post
     else
       render json: {error: 400}
     end
@@ -58,7 +58,7 @@ class Api::PostsController < ApplicationController
     post = Post.find(params[:id])
     # post = Post.find_by_slug(params[:slug])
     if post.update_attributes!(post_params)
-      render json: PostSerializer.new(post).serialized_json
+      render json: post
     else
       render json: {error: 400}
     end
@@ -73,7 +73,7 @@ class Api::PostsController < ApplicationController
   private
   
   def post_params
-    permitted = [:title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link]
-    params.require(:data).require(:attributes).permit(*permitted)
+    permitted = [:title, :slug, :body, :created_at, :updated_at, :feature_image, :feature_link, :state, :user_id, :published_at]
+    params.require(:post).permit(*permitted)
   end
 end

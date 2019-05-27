@@ -8,6 +8,10 @@ class Podcast < ApplicationRecord
     SERIAL = "serial"
   end
   
+  def self.where_state(states = [])
+    self.where(state: states)
+  end
+
   def explicit_str
     explicit == true ? "yes" : "no"
   end
@@ -36,7 +40,7 @@ class Podcast < ApplicationRecord
     <itunes:explicit>#{explicit}</itunes:explicit>
       HEREDOC
       
-    episodes.where(state: Post::States::PUBLISHED).order(created_at: :desc).each do |episode|
+    episodes.joins(:post).where(posts: {state: Post::States::PUBLISHED}).order("posts.published_at DESC").each do |episode|
       rss << <<-HEREDOC
     <item>
       <itunes:episodeType>#{episode.episode_type}</itunes:episodeType>
@@ -52,7 +56,7 @@ class Podcast < ApplicationRecord
       />
       <link>#{File.join(Rails.configuration.web_url, "posts", episode.post.slug)}</link>
       <guid>#{episode.guid}</guid>
-      <pubDate>#{episode.pub_date.rfc2822}</pubDate>
+      <pubDate>#{episode.post.published_at.rfc2822}</pubDate>
       <itunes:duration>#{episode.duration}</itunes:duration>
       <itunes:explicit>#{episode.explicit}</itunes:explicit>
     </item>

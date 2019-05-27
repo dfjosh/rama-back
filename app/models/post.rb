@@ -9,10 +9,16 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
   has_many :comments, dependent: :destroy
   
+  after_save :update_podcast_rss_feed!, if: :has_episode?
+  
   module States
     DRAFT = "DRAFT"
     PUBLISHED = "PUBLISHED"
     ARCHIVED = "ARCHIVED"
+  end
+  
+  def self.where_post_id(id = [])
+    self.where(id: id)
   end
   
   def self.where_state(states = [])
@@ -32,5 +38,13 @@ class Post < ApplicationRecord
   def self.where_not_categories(categories = [])
     self.joins(:categories)
         .where.not(categories: {name: categories})
+  end
+  
+  def has_episode?
+    episode.present?
+  end
+  
+  def update_podcast_rss_feed!
+    episode.podcast.create_rss_feed!(upload: Rails.env.production?)
   end
 end

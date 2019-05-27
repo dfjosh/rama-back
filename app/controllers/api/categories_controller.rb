@@ -3,18 +3,18 @@ class Api::CategoriesController < ApplicationController
 
   def index
     categories = Category.all.order(id: :desc)
-    render json: CategorySerializer.new(categories).serialized_json
+    render json: categories
   end
   
   def show
     category = Category.find(params[:id])
-    render json: CategorySerializer.new(category).serialized_json
+    render json: category
   end
   
   def create
     category = Category.create!(category_params)
     if category
-      render json: CategorySerializer.new(category).serialized_json
+      render json: category
     else
       render json: {error: 400}
     end
@@ -23,7 +23,7 @@ class Api::CategoriesController < ApplicationController
   def update
     category = Category.find(params[:id])
     if category.update_attributes!(category_params)
-      render json: CategorySerializer.new(category).serialized_json
+      render json: category
     else
       render json: {error: 400}
     end
@@ -37,6 +37,6 @@ class Api::CategoriesController < ApplicationController
   private
   
   def category_params
-    params.require(:data).require(:attributes).permit(:name, :created_at, :updated_at)
+    params.require(:category).permit(:name, :created_at, :updated_at)
   end
 end
