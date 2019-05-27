@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get 'podcasts/:slug' => 'podcasts#show'
     resources :podcasts
     resources :episodes
+    resources :enclosures
 
     get 'posts/:slug' => 'posts#show'
     # resources :posts, param: :slug do

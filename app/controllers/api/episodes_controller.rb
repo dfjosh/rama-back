@@ -5,10 +5,6 @@ class Api::EpisodesController < ApplicationController
     episodes = Episode.all
     scopes = []
     
-    if !current_user&.is_admin?
-      scopes << { scope: :where_state, args: [Post::States::PUBLISHED] }
-    end
-    
     if filters = params[:filters]
       filters.each do |filter|
         filter = filter.second
@@ -24,20 +20,21 @@ class Api::EpisodesController < ApplicationController
       model.send(scope[:scope], *scope[:args])
     end
     
-    episodes = episodes.order(created_at: :desc)
+    episodes = episodes.joins(:posts).order(published_at: :desc)
     
-    render json: EpisodeSerializer.new(episodes).serialized_json
+    render json: episodes
   end
   
   def show
     episode = Episode.find(params[:id])
-    render json: EpisodeSerializer.new(episode).serialized_json
+    render json: episode
   end
   
   def create
-    episode = Episode.create!(episode_params)
-    if episode
-      render json: EpisodeSerializer.new(episode).serialized_json
+    episode = Episode.new(episode_params)
+    episode.guid = SecureRandom.uuid
+    if episode.save!
+      render json: episode
     else
       render json: {error: 400}
     end
@@ -46,7 +43,7 @@ class Api::EpisodesController < ApplicationController
   def update
     episode = Episode.find(params[:id])
     if episode.update_attributes!(episode_params)
-      render json: EpisodeSerializer.new(episode).serialized_json
+      render json: episode
     else
       render json: {error: 400}
     end
@@ -60,8 +57,8 @@ class Api::EpisodesController < ApplicationController
   private
   
   def episode_params
-    permitted = [:title, :guid, :summary, :number, :episode_type, :pub_date, :duration, :explicit, :image, :state,
-      :podcast_id, :post_id, :user_id, :created_at, :updated_at]
-    restify_param(:episode).require(:episode).permit(permitted)
+    permitted = [:title, :guid, :summary, :number, :episode_type, :duration, :explicit, :image, :podcast_id, :post_id, 
+      :user_id, :created_at, :updated_at]
+    params.require(:episode).permit(*permitted)
   end
 end

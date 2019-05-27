@@ -3,18 +3,18 @@ class Api::TagsController < ApplicationController
 
   def index
     tags = Tag.all.order(id: :desc)
-    render json: TagSerializer.new(tags).serialized_json
+    render json: tags
   end
   
   def show
     tag = Tag.find(params[:id])
-    render json: TagSerializer.new(tag).serialized_json
+    render json: tag
   end
   
   def create
     tag = Tag.create!(tag_params)
     if tag
-      render json: TagSerializer.new(tag).serialized_json
+      render json: tag
     else
       render json: {error: 400}
     end
@@ -23,7 +23,7 @@ class Api::TagsController < ApplicationController
   def update
     tag = Tag.find(params[:id])
     if tag.update_attributes!(tag_params)
-      render json: TagSerializer.new(tag).serialized_json
+      render json: tag
     else
       render json: {error: 400}
     end
@@ -37,6 +37,6 @@ class Api::TagsController < ApplicationController
   private
   
   def tag_params
-    params.require(:data).require(:attributes).permit(:name, :created_at, :updated_at)
+    params.require(:tag).permit(:name, :created_at, :updated_at)
   end
 end

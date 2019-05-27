@@ -26,19 +26,17 @@ class Api::PodcastsController < ApplicationController
     
     podcasts = podcasts.order(created_at: :desc)
 
-    render json: PodcastSerializer.new(podcasts).serialized_json
+    render json: podcasts
   end
   
   def show
     podcast = Podcast.find_by_slug(params[:slug])
-    render json: PodcastSerializer.new(podcast).serialized_json
+    render json: podcast
   end
   
   def create
-    podcast = Podcast.new(podcast_params)
-    podcast.user_id = params[:data][:relationships][:user][:data][:id] # HACK
-    if podcast.save!
-      render json: PodcastSerializer.new(podcast).serialized_json
+    if podcast = Podcast.create!(podcast_params)
+      render json: podcast
     else
       render json: {error: 400}
     end
@@ -47,7 +45,7 @@ class Api::PodcastsController < ApplicationController
   def update
     podcast = Podcast.find(params[:id])
     if podcast.update_attributes!(podcast_params)
-      render json: PodcastSerializer.new(podcast).serialized_json
+      render json: podcast
     else
       render json: {error: 400}
     end
@@ -63,6 +61,6 @@ class Api::PodcastsController < ApplicationController
   def podcast_params
     permitted = [:title, :description, :website, :podcast_type, :feed, :image, :category, :subcategory, :explicit, 
       :created_at, :updated_at, :slug, :state, :header_image]
-    params.require(:data).require(:attributes).permit(*permitted)
+    params.require(:podcast).permit(*permitted)
   end
 end

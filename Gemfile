@@ -35,8 +35,9 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'fast_jsonapi', '~> 1.5'
-gem 'restful-jsonapi'
+gem 'active_model_serializers', '~> 0.9.0'
+# gem 'fast_jsonapi', '~> 1.5'
+# gem 'restful-jsonapi'
 gem 'data_migrate', '~> 4.0'
 gem 'pg', '~> 1.1', '>= 1.1.3'
 gem 'knock', '~> 2.1', '>= 2.1.1'

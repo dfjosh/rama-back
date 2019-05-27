@@ -3,18 +3,18 @@ class Api::CommentsController < ApplicationController
 
   def index
     comments = Comment.all
-    render json: CommentSerializer.new(comments).serialized_json
+    render json: comments
   end
   
   def show
     comment = Comment.find(params[:id])
-    render json: CommentSerializer.new(comment).serialized_json
+    render json: comment
   end
   
   def create
     comment = Comment.create!(comment_params)
     if comment
-      render json: CommentSerializer.new(comment).serialized_json
+      render json: comment
     else
       render json: {error: 400}
     end
@@ -23,7 +23,7 @@ class Api::CommentsController < ApplicationController
   def update
     comment = Comment.find(params[:id])
     if comment.update_attributes!(comment_params)
-      render json: CommentSerializer.new(comment).serialized_json
+      render json: comment
     else
       render json: {error: 400}
     end
@@ -37,6 +37,6 @@ class Api::CommentsController < ApplicationController
   private
   
   def comment_params
-    params.require(:data).require(:attributes).permit(:post_id, :author, :email, :content, :approved, :parent, :created_at, :updated_at)
+    params.require(:comment).permit(:post_id, :author, :email, :content, :approved, :parent, :created_at, :updated_at)
   end
 end
