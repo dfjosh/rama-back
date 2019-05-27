@@ -76,6 +76,6 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   
-  config.web_url = "https://distantfuturejosh.com"
+  config.web_url = "https://www.distantfuturejosh.com"
   config.cdn_url = "https://s3-us-west-1.amazonaws.com/lazy-rama"
 end
