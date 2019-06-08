@@ -6,8 +6,11 @@ class Api::EpisodesController < ApplicationController
     scopes = []
     
     if filters = params[:filters]
+      puts "filters => #{filters.inspect}"
       filters.each do |filter|
-        filter = filter.second
+        puts 
+        filter = filter.second # because array params are hasherzied: {"filters"=>{"0"=>{"scope"=>"post_id", "args"=>["111"]}}}
+        puts "filter => #{filter.inspect}"
         scopes << {
           scope: "where_#{filter[:scope]}".to_sym, 
           args: filter[:args]
@@ -20,7 +23,7 @@ class Api::EpisodesController < ApplicationController
       model.send(scope[:scope], *scope[:args])
     end
     
-    episodes = episodes.joins(:posts).order(published_at: :desc)
+    episodes = episodes.joins(:post).includes(params[:includes]).order("posts.published_at DESC")
     
     render json: episodes
   end

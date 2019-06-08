@@ -1,35 +1,9 @@
 class Api::PostSerializer < ActiveModel::Serializer
-  # include FastJsonapi::ObjectSerializer
-  # set_key_transform :dash
-
   attributes :id, :title, :slug, :body, :state, :created_at, :updated_at, :feature_image, :feature_link, :published_at
+  
   has_one :user
-  has_many :post_categories#, lazy_load_data: true
-  has_many :post_tags#, lazy_load_data: true
-  has_many :comments#, lazy_load_data: true
-  # has_many :post_tags, links: {
-  #   related: -> (object) {
-  #     "http://localhost:3000/posts/#{object.id}/post_tags"
-  #   }
-  # }
-  # has_many :tags, lazy_load_data: true, links: {
-  #   related: -> (object) {
-  #     "http://localhost:3000/posts/#{object.id}/tags"
-  #   }
-  # }
-
-  # old jsonapi_resource stuff
-  # def self.default_sort
-  #   [{ field: 'created_at', direction: :desc }]
-  # end
-  # 
-  # filters :author, :categories, :title
-  # 
-  # filter "!categories", apply: ->(records, value, _options) {
-  #   records.joins(:categories).where("categories.id NOT IN (?)", value[0])
-  # }
-  # 
-  # paginator :paged
-
-
+  has_many :post_categories
+  has_many :post_tags
+  has_many :comments
+  has_one :episode, serializer: Api::EpisodeOnlySerializer
 end
