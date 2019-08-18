@@ -19,6 +19,10 @@ class Episode < ApplicationRecord
     self.where(podcast_id: podcast_id)
   end
   
+  def self.where_post_id(post_id = [])
+    self.where(post_id: post_id)
+  end
+  
   def update_podcast_rss_feed!
     podcast.create_rss_feed!(upload: Rails.env.production?)
   end
