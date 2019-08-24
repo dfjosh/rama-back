@@ -60,7 +60,7 @@ class Api::PodcastsController < ApplicationController
   
   def podcast_params
     permitted = [:title, :description, :website, :podcast_type, :feed, :image, :category, :subcategory, :explicit, 
-      :created_at, :updated_at, :slug, :state, :header_image]
+      :created_at, :updated_at, :slug, :state, :header_image, :external_id]
     params.require(:podcast).permit(*permitted)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_27_182151) do
+ActiveRecord::Schema.define(version: 2019_08_18_152109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2019_05_27_182151) do
     t.string "slug"
     t.string "state"
     t.string "header_image"
+    t.bigint "external_id"
   end
 
   create_table "post_categories", id: :serial, force: :cascade do |t|
