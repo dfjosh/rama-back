@@ -1,6 +1,7 @@
 namespace :analyze_logs do
   desc 'analyze s3 (apache) logs'
 
+  # $ bin/rails "analyze_logs:subscribers[/Users/josh/projects/rama/other/lazy-rama-logs/,10]"
   task :subscribers, [:log_dir, :limit] => :environment do |t, args|
     # log_dir = ARGV[0]
     # limit = ARGV[1]

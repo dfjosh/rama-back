@@ -1,5 +1,3 @@
-# require 'date'
-
 class Log
   attr_accessor :string, :array, :bucket_owner, :bucket, :time, :remote_ip, :requester, :request_id, :operation, :key,
                 :request_uri, :http_status, :error_code, :bytes_sent, :object_size, :total_time, :turn_around_time,
@@ -15,17 +13,18 @@ class Log
   def to_array(string)
     elements = []
     string = @string
-    while !string.empty?
+    while string.present?
+      byebug
       if string[0] == %|"|
-        index = string[1,-1].index(%|" |) + 1 # since open & close quotes are same char, make sure not to consider the first
+        index = string[1..-1].index(%|" |) + 2 # since open & close quotes are same char, make sure not to consider the first
       elsif string[0] == %|[|
-        index = string.index("]")
+        index = string.index("]") + 1 # include the closing bracket
       else
-        index = (string.index(" ") || 0) - 1
+        index = (string.index(" ") || -1)
       end
-      elements << string[0,index]
+      elements << string[0...index] # don't include the space
       break if index < 0
-      string = string[(index+2),]
+      string = string[(index+1)..-1]
     end
     elements
   end
@@ -73,14 +72,14 @@ class Log
   end
   
   def request_method
-    request_uri.split(" ")[0]
+    request_uri[1...-1].split(" ")[0]
   end
   
   def request_resource
-    request_uri.split(" ")[1]
+    request_uri[1...-1].split(" ")[1]
   end
   
   def request_protocol
-    request_uri.split(" ")[2]
+    request_uri[1...-1].split(" ")[2]
   end
 end
