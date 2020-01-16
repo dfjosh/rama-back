@@ -66,7 +66,6 @@ class Log
   end
   
   def datetime
-    puts self.inspect
     DateTime.strptime(self.time, "[%d/%b/%Y:%H:%M:%S %z]")
   end
   

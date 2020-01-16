@@ -3,11 +3,6 @@ namespace :analyze_logs do
 
   # $ bin/rails "analyze_logs:subscribers[/Users/josh/projects/rama/other/lazy-rama-logs/,10]"
   task :subscribers, [:log_dir, :limit] => :environment do |t, args|
-    # log_dir = ARGV[0]
-    # limit = ARGV[1]
-    # log_dir = "/Users/josh/projects/rama/other/lazy-rama-logs/"
-    # limit = 10
-
     log_file_names = Dir.entries(args.log_dir) - [".", ".."]
     log_file_names = log_file_names.first(args.limit.to_i) if args.limit
     puts "Total log files to be analyzed: #{log_file_names.size}"
