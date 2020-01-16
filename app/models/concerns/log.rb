@@ -14,17 +14,16 @@ class Log
     elements = []
     string = @string
     while string.present?
-      byebug
       if string[0] == %|"|
-        index = string[1..-1].index(%|" |) + 2 # since open & close quotes are same char, make sure not to consider the first
+        index = string[1..-1].index(%|" |) + 1 # since open & close quotes are same char, make sure not to consider the first
       elsif string[0] == %|[|
-        index = string.index("]") + 1 # include the closing bracket
+        index = string.index("]")
       else
-        index = (string.index(" ") || -1)
+        index = (string.index(" ") || 0) - 1
       end
-      elements << string[0...index] # don't include the space
+      elements << string[0..index]
       break if index < 0
-      string = string[(index+1)..-1]
+      string = string[(index+2)..-1]
     end
     elements
   end
