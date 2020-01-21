@@ -6,27 +6,30 @@ class AnalyzeLogsJob < ApplicationJob
   end
   
   # /Users/josh/projects/rama/other/lazy-rama-logs/
-  def self.process_logs(log_dir, limit)
-    log_file_names = Dir.entries(log_dir) - [".", ".."]
-    log_file_names = log_file_names.first(limit.to_i) if limit
-    puts "Total log files to be analyzed: #{log_file_names.size}"
+  def self.process_logs(log_dir, limit = nil)
+    cache = ActiveSupport::Cache::FileStore.new(Rails.configuration.cache_store[1])
+    cache.fetch("#{log_dir},#{limit}") do
+      log_file_names = Dir.entries(log_dir) - [".", ".."]
+      log_file_names = log_file_names.first(limit.to_i) if limit
+      puts "Total log files to be analyzed: #{log_file_names.size}"
 
-    logs = []
-    log_file_names.each do |log_file_name|
-      log_file_path = File.join(log_dir, log_file_name)
-      log_content = File.read(log_file_path)
-      log_lines = log_content.split("\n")
-      log_lines.each do |log_line|
-        log = Log.new(log_line)
-        logs << log
+      logs = []
+      log_file_names.each do |log_file_name|
+        log_file_path = File.join(log_dir, log_file_name)
+        log_content = File.read(log_file_path)
+        log_lines = log_content.split("\n")
+        log_lines.each do |log_line|
+          log = Log.new(log_line)
+          logs << log
+        end
       end
-    end
 
-    puts "Total log lines analyzed: #{logs.size}"
-    logs.sort! { |a, b|  b.datetime <=> a.datetime }
+      puts "Total log lines analyzed: #{logs.size}"
+      logs.sort! { |a, b|  b.datetime <=> a.datetime }
+    end
   end
   
-  def self.subscriber_stats(log_dir, limit)
+  def self.subscriber_stats(log_dir, limit = nil)
     subscriber_logs = process_logs(log_dir, limit).select { |log| log.key == "science-fiction-shorts/science-fiction-shorts.xml" }
     # subscriber_logs.delete_if { |log| log.remote_ip == "73.223.42.160" } # me
 
@@ -49,7 +52,7 @@ class AnalyzeLogsJob < ApplicationJob
     unique_subscribers.to_h
   end
   
-  def self.print_subscriber_stats(log_dir, limit)
+  def self.print_subscriber_stats(log_dir, limit = nil)
     subscriber_stats = subscriber_stats(log_dir, limit)
     subscriber_stats.each do |ip, hsh|
       str = ""
@@ -57,6 +60,36 @@ class AnalyzeLogsJob < ApplicationJob
       str += "#{hsh[:earliest].strftime("%m/%d/%Y")} - #{hsh[:latest].strftime("%m/%d/%Y")} "
       str += "(#{(hsh[:latest] - hsh[:earliest]).to_i} days)"
       puts str
+    end
+    nil
+  end
+  
+  def self.resource_stats(log_dir, limit = nil)
+    resource_logs = process_logs(log_dir, limit)
+
+    # {"/somefile.jpg"=>{"total"=>127, "by_month"=>{"2020-01"=>3, ...}}}
+    stats = {}
+    resource_logs.each do |log|
+      stats[log.key] ||= {}
+      
+      stats[log.key]["total"] ||= 0
+      stats[log.key]["total"] += 1
+      
+      stats[log.key]["by_month"] ||= {}
+      
+      date_key = log.datetime.strftime("%Y-%m")
+      stats[log.key]["by_month"][date_key] ||= 0
+      stats[log.key]["by_month"][date_key] += 1
+    end
+    stats.delete_if { |rsrc, hsh| rsrc.nil? || hsh["total"] < 10 }
+    stats = stats.to_a.sort! { |a, b| b[1]["total"] <=> a[1]["total"] }
+    stats.to_h
+  end
+  
+  def self.print_resource_stats(log_dir, limit = nil)
+    resource_stats = resource_stats(log_dir, limit)
+    resource_stats.each do |rsrc, hsh|
+      puts "#{hsh["total"].to_s.ljust(7)}#{rsrc}"
     end
     nil
   end
