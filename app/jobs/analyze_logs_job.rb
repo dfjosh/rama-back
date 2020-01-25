@@ -90,7 +90,31 @@ class AnalyzeLogsJob < ApplicationJob
     resource_stats = resource_stats(log_dir, limit)
     resource_stats.each do |rsrc, hsh|
       puts "#{hsh["total"].to_s.ljust(7)}#{rsrc}"
+
+      # add dates that have no data
+      test_date = DateTime.strptime(hsh["by_month"].to_a.last[0], "%Y-%m")
+      present = DateTime.now.beginning_of_month
+      while test_date <= present
+        key = test_date.strftime("%Y-%m")
+        hsh["by_month"][key] = 0 unless hsh["by_month"][key]
+        test_date = test_date + 1.month
+      end
+      # TODO the problem is, I'm an idiot and I should have made this an array that contains objects because in truth, order does matter. Currently any dates I add to the hash get inserted at the end and therefore are printed out of order.
+      
+      hsh["by_month"].each do |date, cnt|
+        print "#{date} |#{'#' * cnt}"
+        puts "\n"
+      end
     end
     nil
   end
+  
+  # def self.chart_resource_stats(log_dir, limit = nil)
+  #   resource_stats = resource_stats(log_dir, limit)
+  #   data = File.new(File.expand_path("~/projects/rama/other/reporting/data.js"), "w+")
+  #   data << "var data = "
+  #   data << resource_stats.to_json
+  #   data << ";"
+  #   data.close
+  # end
 end
