@@ -764,7 +764,7 @@ GEM
     data_migrate (4.0.0)
       rails (>= 4.2)
     erubi (1.7.1)
-    ffi (1.9.14)
+    ffi (1.12.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.0.1)
