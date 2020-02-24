@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :podcasts
     resources :episodes
     resources :enclosures
+    
+    get 'goodreads_reviews' => 'goodreads_reviews#index'
 
     get 'posts/:slug' => 'posts#show'
     # resources :posts, param: :slug do
