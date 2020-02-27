@@ -1,7 +1,7 @@
 class GoodreadsApi < ApplicationRecord
   def self.get_reviews
     me = 56955322
-    options = "&shelf=read&page=1&per_page=5"
+    options = "&shelf=read&sort=date_read&page=1&per_page=5"
     url = "https://www.goodreads.com/review/list/#{me}.xml?key=#{ENV['GOODREADS_KEY']}&v=2#{options}"
     resp = HTTP.get(url)
     xml_obj = Nokogiri::XML(resp)
@@ -17,7 +17,7 @@ class GoodreadsApi < ApplicationRecord
       r[:published] = review["book"]["published"]
       r[:rating] = review["rating"].to_i
       r[:body] = review["body"]
-      r[:completed] = review["read_at"]
+      r[:completed] = review["read_at"].present? ? review["read_at"] : review["date_updated"] # no idea why it comes back blank sometimes
       r[:link] = review["link"]
       reviews << r
     end
