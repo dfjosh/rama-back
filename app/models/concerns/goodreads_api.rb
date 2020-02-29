@@ -2,7 +2,7 @@ class GoodreadsApi < ApplicationRecord
   def self.get_reviews
     me = 56955322
     options = "&shelf=read&sort=date_read&page=1&per_page=5"
-    url = "https://www.goodreads.com/review/list/#{me}.xml?key=#{ENV['GOODREADS_KEY']}&v=2#{options}"
+    url = "https://www.goodreads.com/review/list/#{me}.xml?key=#{Rails.application.credentials.goodreads_key}&v=2#{options}"
     resp = HTTP.get(url)
     xml_obj = Nokogiri::XML(resp)
     hash = Hash.from_xml(xml_obj.to_xml)
