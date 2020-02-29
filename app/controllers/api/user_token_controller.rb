@@ -3,7 +3,7 @@ class Api::UserTokenController < Knock::AuthTokenController
     user = User.find_by_email(user_token_params[:email])
     
     if user&.authenticate(user_token_params[:password])
-      # token = JWT.encode(user_token_params, ENV["SECRET_KEY_BASE"], "HS256")
+      # token = JWT.encode(user_token_params, ENV["SECRET_KEY_BASE"], "HS256") <-- I don't need this but if I ever did, I switched from using ENV to "credentials"
       token = Knock::AuthToken.new(payload: { sub: user.id }).token
       render json: {token: token} #, status: :created
     else

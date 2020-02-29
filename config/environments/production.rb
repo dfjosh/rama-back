@@ -78,4 +78,6 @@ Rails.application.configure do
   
   config.web_url = "https://www.distantfuturejosh.com"
   config.cdn_url = "https://s3-us-west-1.amazonaws.com/lazy-rama"
+  
+  config.require_master_key = true
 end

@@ -36,8 +36,7 @@ Knock.setup do |config|
   ## Configure the key used to sign tokens.
   ##
   ## Default:
-  # config.token_secret_signature_key = -> { Rails.application.secrets.secret_key_base }
-  config.token_secret_signature_key = -> { ENV["SECRET_KEY_BASE"] } # you absolutely need this. Throws `TypeError: no implicit conversion of nil into String` otherwise
+  config.token_secret_signature_key = -> { Rails.application.credentials.secret_key_base } # you absolutely need this. Throws `TypeError: no implicit conversion of nil into String` otherwise. And since Rails 5.2 you need to use the new "credentials" feature (not "secrets")
 
   ## If using Auth0, uncomment the line below
   # config.token_secret_signature_key = -> { JWT.base64url_decode Rails.application.secrets.auth0_client_secret }
